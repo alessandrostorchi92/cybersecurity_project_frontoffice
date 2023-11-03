@@ -16,7 +16,7 @@ const routes = [
         component: IndexPage
     },
     {
-        path: "/show",
+        path: "/show/:id",
         name: "show",
         component: ShowPage
     }
