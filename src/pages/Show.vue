@@ -34,7 +34,16 @@ export default {
         <h1>Show</h1>
 
         <ul>
-            <li>{{ profile.location}}</li>
+            <li>{{profile[0]?.user.name}}</li>
+            <li>{{profile[0]?.user.surname}}</li>
+            <li>{{profile[0]?.user.email}}</li>
+            <li>{{profile[0]?.photo}}</li>
+            <li>{{profile[0]?.phone}}</li>
+            <li>{{profile[0]?.location}}</li>
+            <li>{{profile[0]?.description}}</li>
+
+
+
         </ul>
         
     </div>
