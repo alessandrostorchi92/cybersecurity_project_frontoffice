@@ -64,7 +64,7 @@ export default {
             <div class="badge-container text-end">
                 <div class="next-arrow text-center"><i class="fa-solid fa-chevron-up"></i></div>
                 <div v-for="(specialization, index) in specializations" :key="index">
-                    <div class="badge-style" @click="selectSpecialization(specialization?.name)">
+                    <div class="badge-style" @click="selectSpecialization(specialization?.name), fetchData()">
                         {{ specialization?.name }}
                     </div>
                 </div>
