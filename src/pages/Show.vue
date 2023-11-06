@@ -7,7 +7,8 @@ export default {
 
     data() {
         return {
-            profile:{}
+            profile:{},
+            user:{}
         };
     },
 
@@ -16,9 +17,13 @@ export default {
             axios
             .get('http://127.0.0.1:8000/api/profile/' + this.$route.params.id)
             .then((response)=>{
-                this.profile = response.data.data
+                this.user = response.data.users.data
+                this.profile = response.data.profiles.data
             })
-        }
+        },
+        getImageUrl(profile) {
+            return `http://127.0.0.1:8000/storage/${profile.photo}`;
+        },
 
     },
 
@@ -34,18 +39,15 @@ export default {
         <h1>Show</h1>
 
         <ul>
-            <li>{{profile[0]?.user.name}}</li>
-            <li>{{profile[0]?.user.surname}}</li>
-            <li>{{profile[0]?.user.email}}</li>
+            <li>{{user[0]?.name}}</li>
+            <li>{{user[0]?.surname}}</li>
+            <li>{{user[0]?.email}}</li>
             <li>{{profile[0]?.photo}}</li>
             <li>{{profile[0]?.phone}}</li>
-            <li>{{profile[0]?.location}}</li>
+            <li>{{profile[0]?.location}}</li>  
+            <li>{{user[0]?.specializations.map(specializations => specializations.name).join(', ') }}</li>  
             <li>{{profile[0]?.description}}</li>
-
-
-
-        </ul>
-        
+        </ul >
     </div>
 </template>
 
