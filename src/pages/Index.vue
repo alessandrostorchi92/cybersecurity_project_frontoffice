@@ -1,8 +1,10 @@
 <script>
 import axios from 'axios';
+import SearchSpecialization from '../components/SearchSpecialization.vue';
 
 export default {
     components: {
+        SearchSpecialization
     },
 
     data() {
@@ -33,7 +35,7 @@ export default {
     <div class="container">
         <h1>Index</h1>
     </div>
-
+    <SearchSpecialization></SearchSpecialization>
 <ul v-for="user in users">
     <li><router-link :to="{name:'show', params: {id: user.id}}">{{ user.name}}</router-link></li>
 </ul>
