@@ -21,10 +21,10 @@ export default {
                 this.profile = response.data.profiles.data
             })
         },
-
         getImageUrl(profile) {
             return `http://127.0.0.1:8000/storage/${profile.photo}`;
         },
+
     },
 
     mounted() {
@@ -42,7 +42,7 @@ export default {
             <li>{{user[0]?.name}}</li>
             <li>{{user[0]?.surname}}</li>
             <li>{{user[0]?.email}}</li>
-            <li>{{profile[0]?.getImageUrl()}}</li>
+            <li>{{profile[0]?.photo}}</li>
             <li>{{profile[0]?.phone}}</li>
             <li>{{profile[0]?.location}}</li>  
             <li>{{user[0]?.specializations.map(specializations => specializations.name).join(', ') }}</li>  
