@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             specializations: [],
-            selectedIndex: 0, // Inizializza l'indice selezionato a 0
+            selectedSpecialization: null, // Aggiungi una variabile per memorizzare la specializzazione selezionata
         };
     },
     methods: {
@@ -16,35 +16,19 @@ export default {
                     this.specializations = response.data;
                 });
         },
-        getBadgeSize(index) {
-            return {
-                'large-badge': this.selectedIndex === index,
-/*                 'medium-lg-badge': Math.abs(this.selectedIndex - index) === 1,
-                'medium-md-badge': Math.abs(this.selectedIndex - index) === 2,
-                'medium-sm-badge': Math.abs(this.selectedIndex - index) === 3,
-                'small-badge': this.selectedIndex !== index */
-            }
-        },
-        clickSize(index) {
-            this.selectedIndex = index; // Imposta l'indice selezionato
-        },
-        nextBadgeSlide() {
-            this.selectedIndex = (this.selectedIndex + 1) % this.specializations.length; // Scorrimento all'elemento successivo o al primo
-        },
-        prevBadgeSlide() {
-            this.selectedIndex = (this.selectedIndex - 1 + this.specializations.length) % this.specializations.length; // Scorrimento all'elemento precedente o all'ultimo
+        selectSpecialization(specializationName) {
+            this.selectedSpecialization = specializationName; // Memorizza il nome della specializzazione selezionata
         },
     },
     computed: {
-        centerIndex() {
-            return Math.floor(this.specializations.length / 2);
-        },
+
     },
     mounted() {
         this.getSpecializationsFromApi()
     },
 };
 </script>
+
 
 
 
@@ -59,21 +43,19 @@ export default {
 
             <div class="description-container"></div>
             <div class="badge-container text-end">
-                <div class="next-arrow text-center" @click="nextBadgeSlide()"><i class="fa-solid fa-chevron-up"></i></div>
-
-                <div v-for="(specialization, index) in specializations">
-                    <div class="badge-style" :class="getBadgeSize(index)" @click="clickSize(index)">{{ specialization?.name
-                    }}</div>
+                <div class="next-arrow text-center"><i class="fa-solid fa-chevron-up"></i></div>
+                <div v-for="(specialization, index) in specializations" :key="index">
+                    <div class="badge-style" @click="selectSpecialization(specialization?.name)">
+                        {{ specialization?.name }}
+                    </div>
                 </div>
-                <div class="prev-arrow text-center" @click="prevBadgeSlide()"><i class="fa-solid fa-chevron-down"></i></div>
-
+                <div class="prev-arrow text-center"><i class="fa-solid fa-chevron-down"></i></div>
             </div>
-
         </div>
-
-
     </div>
 </template>
+
+
 
 <style lang="scss" scoped>
 .badge-container {
@@ -103,25 +85,5 @@ export default {
     background-color: rgb(37, 37, 37);
     color: white;
 
-}
-
-.large-badge {
-    transform: scale(1) !important;
-}
-
-.medium-lg-badge {
-    transform: scale(0.90) !important;
-}
-
-.medium-md-badge {
-    transform: scale(0.83) !important;
-}
-
-.medium-sm-badge {
-    transform: scale(0.73) !important;
-}
-
-.small-badge {
-    transform: scale(0.65);
 }
 </style>
