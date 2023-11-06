@@ -18,6 +18,19 @@ export default {
         },
         selectSpecialization(specializationName) {
             this.selectedSpecialization = specializationName; // Memorizza il nome della specializzazione selezionata
+            return this.specializationFilter()
+        },
+
+        specializationFilter() {
+            axios
+                .get('http://127.0.0.1:8000/api/users/specialization/', {
+                    params: {
+                        specialization: this.selectedSpecialization // Passa il nome della specializzazione come parametro
+                    }
+                })
+                .then((response) => {
+                    this.users = response.data.data;
+                });
         },
     },
     computed: {
