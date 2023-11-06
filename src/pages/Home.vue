@@ -1,6 +1,9 @@
 <script>
+import SearchSpecialization from '../components/SearchSpecialization.vue';
+
 export default {
 	components: {
+		SearchSpecialization
 	},
 
 	data() {
@@ -22,6 +25,7 @@ export default {
 <template>
 	<div class="container">
 		<h1>Homepage</h1>
+		<SearchSpecialization></SearchSpecialization>
 	</div>
 </template>
 
