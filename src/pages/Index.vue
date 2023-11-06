@@ -1,4 +1,5 @@
 <script>
+<<<<<<< HEAD
 import axios from "axios";
 
 export default {
@@ -18,6 +19,14 @@ export default {
         .catch((error) => {
           console.error("Error fetching profile data:", error);
         });
+=======
+import axios from 'axios';
+import SearchSpecialization from '../components/SearchSpecialization.vue';
+
+export default {
+    components: {
+        SearchSpecialization
+>>>>>>> 115cfb5988f2dd630191686328e8060858be4dc0
     },
     getImageUrl(photo) {
       return `http://127.0.0.1:8000/storage/${photo}`;
