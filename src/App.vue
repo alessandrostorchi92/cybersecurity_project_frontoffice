@@ -31,7 +31,6 @@ export default {
         </a>
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><router-link class="nav-link" to="/">Home</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/index">Index</router-link></li>
         </ul>
       </div>
     </nav>
