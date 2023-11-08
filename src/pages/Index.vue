@@ -119,10 +119,7 @@ export default {
 
 
     <!-- ------------------------------ -->
-    <div class="container">
-        <h1>Index</h1>
 
-    </div>
 </template>
 
 <style lang="scss" scoped>
