@@ -2,140 +2,219 @@
 import axios from "axios";
 
 export default {
-    data() {
-        return {
-            specializations: [],
-            selectedSpecialization: null
-        };
-    },
-    methods: {
-        getSpecializationsFromApi() {
-            axios.get("http://127.0.0.1:8000/api/specialization").then((response) => {
-                this.specializations = response.data;
-            });
-        },
+	data() {
+		return {
+			specializations: [],
+			selectedSpecialization: null
+		};
+	},
+	methods: {
+		getSpecializationsFromApi() {
+			axios.get("http://127.0.0.1:8000/api/specialization").then((response) => {
+				this.specializations = response.data;
+			});
+		},
 
-        selectSpecialization(specializationName) {
-            this.$router.push({ name: 'index', params: { specialization: specializationName } });
-        },
+		selectSpecialization(specializationName) {
+			this.$router.push({ name: 'index', params: { specialization: specializationName } });
+		},
 
-        showDescription(specialization) {
-            this.selectedSpecialization = specialization;
-        },
-    },
+		showDescription(specialization) {
+			this.selectedSpecialization = specialization;
+		},
+	},
 
-    mounted() {
-        this.getSpecializationsFromApi();
-    },
+	mounted() {
+		this.getSpecializationsFromApi();
+	},
 };
 </script>
 
 <template>
-    <div class="home-container">
-        <header class="header">
-            <h1 class="title">Cyber Security</h1>
-            <p class="description">
-                Your online security is important. Use our advanced search to find experts by specialization and location,
-                read customer reviews, and easily request a consultation. With Cyber Security, you can access a network of
-                trusted experts to protect your digital world.
-            </p>
-            <router-link to="/index" class="btn">Find Experts</router-link>
-        </header>
+	<div class="container-fluid">
 
-        <div class="specializations">
-            <div v-for="(specialization, index) in specializations" :key="index"
-                @click="selectSpecialization(specialization.name)" @mouseover="showDescription(specialization)"
-                @mouseout="selectedSpecialization = null" class="specialization-badge">
-                {{ specialization.name }}
-            </div>
-            <div class="description-tooltip" v-if="selectedSpecialization">
-                {{ selectedSpecialization.description }}
-            </div>
-        </div>
-    </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-12 categories-bg text-center ">
+								
+				<header class="header">
+					<h1 class="title ">Cyber Security</h1>
+					<p class="description  p-3">
+						La tua sicurezza informatica è di fondamentale importanza. Grazie alla nostra ricerca avanzata, puoi scoprire esperti specializzati nella tua zona, leggere le recensioni dei clienti e richiedere facilmente una consulenza. Con Cyber Security, avrai accesso a una rete di esperti affidabili pronti a proteggere il tuo mondo digitale. Non lasciare nulla al caso, affidati a noi per garantire la tua tranquillità online.
+					</p>
+					<router-link to="/index" class="btn ">Find Experts</router-link>
+				</header>
+				<!-- Contenuto delle categorie -->
+				<div class="">
+					<div class="text-center mt-5">
+						<h5>Cerca la Categoria Desiderata</h5>
+					</div>
+					<div class="d-flex justify-content-center">
+						<div class="badge-container text-center">
+							<div class="next-arrow text-center"><i class="fa-solid fa-chevron-up"></i></div>
+							<div v-for="(specialization, index) in specializations" :key="index"
+								@click="selectSpecialization(specialization?.name)" @mouseover="showDescription(specialization)"
+								@mouseout="selectedSpecialization = null" class="badge-style">
+								{{ specialization?.name }}
+							</div>
+							<div class="prev-arrow text-center"><i class="fa-solid fa-chevron-down"></i></div>
+						</div>
+					</div>
+				</div>
+								<!-- descrizione catergorie  -->
+								<div class="description-tooltip" v-if="selectedSpecialization">
+									{{ selectedSpecialization.description }}
+								</div>
+								<!-- ------------------------------ -->
+			</div>
+
+			
+			<div class="col-lg-8 col-12 ">
+
+				<!-- bootstrap card -->
+
+				<div class="scrolling-container  d-flex ">
+					
+						<!-- Contenuto della Card 1 -->
+						<div class="card me-5" style="min-width: 18rem;">
+							<img src="/profile-pic.webp" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-text text-center">Nome Esperto</h5>
+							</div>
+						</div>
+						<!------------------------->
+						<div class="card me-5" style="min-width: 18rem;">
+							<img src="/profile-pic.webp" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-text text-center">Nome Esperto</h5>
+							</div>
+						</div>
+						<div class="card me-5" style="min-width: 18rem;">
+							<img src="/profile-pic.webp" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-text text-center">Nome Esperto</h5>
+							</div>
+						</div>
+						<div class="card me-5" style="min-width: 18rem;">
+							<img src="/profile-pic.webp" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-text text-center">Nome Esperto</h5>
+							</div>
+						</div>
+						<div class="card me-5" style="min-width: 18rem;">
+							<img src="/profile-pic.webp" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-text text-center">Nome Esperto</h5>
+							</div>
+						</div>
+
+					
+				</div>
+
+				<!-- -------------------------------- -->
+			</div>
+		</div>
+
+	
+
+
 </template>
 
 <style lang="scss" scoped>
-.home-container {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('your-background-image.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    text-align: center;
-    padding: 100px 0;
+.title{
+	font-size: 4rem;
+
+}
+.description{
+	color: white;
+
 }
 
-.header {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.description {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-}
 
 .btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+	cursor: pointer;
+	background-color: rgb(37, 37, 37);
+	color: #fff;
+	padding: 10px 20px;
+	font-size: 1.2rem;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+	border-radius: 15px;
+	text-align: center;
+	padding: 8px 10px;
+	width: 15rem;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+	background-color: #6d7074;
 }
 
-.specializations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 40px;
+
+/*----- Stile per il contenitore con uno scroll orizzontale -------*/
+.scrolling-container {
+	white-space: nowrap;
+	/* Evita che le card si spezzino su più righe */
+	overflow-x: auto;
+	white-space: nowrap;
+	margin-top: 32rem;
+	margin-left: 2rem;
+	
 }
 
-.specialization-badge {
-    cursor: pointer;
-    background-color: #333;
-    color: #fff;
-    border-radius: 10px;
-    /* Badge più piccoli */
-    padding: 8px 16px;
-    /* Dimensioni ridotte */
-    margin: 0 10px 10px;
-    font-size: 1rem;
-    /* Testo più piccolo */
-    position: relative;
-    transition: background-color 0.3s;
+
+
+
+/*----------------------*/
+.categories-bg {
+	background-color: rgba(51, 51, 51, 0.9);
+	color: #fff;
+	height: 100vh;
 }
 
-@media screen and (max-width: 768px) {
-    .header {
-        padding: 20px;
-    }
 
-    .title {
-        font-size: 2rem;
-    }
+.badge-container {
+	align-self: center;
 
-    .description {
-        font-size: 1rem;
-    }
+	scrollbar-width: none;
+	/* Nasconde le barre di scorrimento standard Firefox */
+	-ms-overflow-style: none;
+	/* Nasconde le barre di scorrimento standard IE/Edge */
 
-    .btn {
-        font-size: 1rem;
-    }
+	&::-webkit-scrollbar {
+		width: 0;
+	}
 
-    .specialization-badge {
-        font-size: 1rem;
-        padding: 6px 12px;
-    }
 }
+
+.badge-style {
+	cursor: pointer;
+	border-radius: 15px;
+	width: 15rem;
+	text-align: center;
+	margin: 5px;
+	display: inline-block;
+	padding: 8px 10px;
+	background-color: rgb(37, 37, 37);
+	color: white;
+
+}
+
+/* Stile per posizionare la descrizione delle categorie al centro */
+
+.description-tooltip {
+	background-color: rgb(37, 37, 37);
+	border-radius: 15px;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+	max-width: 100%;
+}
+
+/*-----------------------------------------------*/
+
+
+
+
+
 </style>

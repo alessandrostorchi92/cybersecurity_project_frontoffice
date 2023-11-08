@@ -4,140 +4,23 @@
 /* ------------stili homepage----------------- */
 
 body{
+	background-image: url(/bg-8.jpg);
+	background-size: cover;
+	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+	background-repeat: no-repeat;
   
-  background-image: url(/homepage-3a.png);
-  // background-image: url(/cyberSecurity2a.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
-
-.bg-image {
-  background-size: cover;
-  background-position: center ;
-  background-repeat: no-repeat;
-  width: 100vw;
-  height: 97vh; /* Regola l'altezza */
-  color: black; 
-}
-
-/* Stili per il titolo */
-.title {
-  font-size: 90px;
-  margin-top: 270px;
-  margin-left: 350px;
-}
-
-/* Stili per il descrizione */
-.description {
-  font-size: 18px;
-  margin-top: 30px;
-  margin-left: 720px;
-  width: 35%;
-}
-
-/* Stili per il pulsante di ricerca esperti */
-.btn {
-  font-size: 18px;
-  margin-top: 30px;
-  margin-left: 720px;
-  padding-left: 8rem;
-  padding-right: 8rem;
-  background-color: #4F607A;
-  color: white;
-}
-
-/*-----------Media Query per layout desktop----------*/
-/*--------------------Homepage-----------------------*//*
-@media (min-width: 992px){
-  .title{
-    font-size: 85px;
-    margin-top: 210px;
-    margin-left: 220px;
-
-  }
-  .description{
-    font-size: 16px;
-    text-align: center;// centra il testo orizontamente 
-    margin-top: 10px;
-    //background-color:rgba(79, 96, 122, 0.7);
-    margin-left: 400px;
-    width: 70%;
-  }
-  .btn{
-    margin-top: 1rem;
-    width: 70%;
-    margin-left: 600px;
-  }
-  .bg-image{
-    height: 100vh;
-  }
-
-}*/
-
-/*-----------Media Query per layout Tablet----------*/
-/*--------------------Homepage-----------------------*/
-
-@media (max-width: 992px){
-  .title{
-    font-size: 75px;
-   // margin: 0 auto;// centr orizontamente
-    margin-top: 230px;
-    margin-left: 200px;
-   // text-align: center;// per centrare il testo horizzontamente 
-    //margin-top: 50vh;
-    //transform: translateY(-50%);
-
-  }
-  .description{
-    font-size: 16px;
-    text-align: center;// centra il testo orizontamente 
-    margin-top: 10px;
-    margin-left: 370px;
-    width: 70%;
-  }
-  .btn{
-    width: 70%;
-    margin-left: 500px;
-  }
-  .bg-image{
-    height: 100vh;
-  }
 
 }
-
-/*-----------Media Query per layout Mobile----------*/
-/*--------------------Homepage-----------------------*/
-@media (max-width: 992px){
-  .title{
-    font-size: 60px; //riduce la dimenssione del titolo
-    margin-top: 10px; //modifica il margin top per la versione mobile
-    background-color:rgba(79, 96, 122, 0.7); // aggiunge un colore per lo sfondo 
-    color: white;//cambio il colore del testo 
-    padding: 1rem; 
-    margin-left: 0;
-    text-align: center;
-    margin-top: 100px;
-  }
-  .description{
-    font-size: 16px;
-    margin-top: 10px;
-    margin-left: 0; // rimuove il margin left per ocupare tuuto lo spazio 
-    background-color:rgba(79, 96, 122, 0.7); // aggiunge un colore per lo sfondo azzuro trasparente
-    color: white;//cambio il colore del testo 
-    padding: 1rem; 
-    width: 100%;
-  }
-  .btn{
-    width: 90%;
-    text-align: center;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    margin-left: 0;
-    margin-top: 0.5rem;
-    background-color:rgba(79, 96, 122,);
-  }
+/* aggiunge un overlay trasparente all'immagine di sfondo */
+body::before {
+  content: "";
+  background: rgba(173, 171, 171, 0.5); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Posiziona l'overlay dietro all'immagine di sfondo */
 }
 
 /* ----------------------------------------- */
