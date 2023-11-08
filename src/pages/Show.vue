@@ -1,7 +1,18 @@
 <script>
 import axios from "axios";
+import StarRating from "../components/StarRating.vue";
 
 export default {
+  components: {
+    StarRating,
+  },
+
+  props: {
+    initialScore: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       profile: {},
@@ -17,13 +28,19 @@ export default {
 
       errors: null,
       success: null,
+      reviewName: "",
+      reviewSurname: "",
+      reviewText: "",
+      reviewScore: this.initialScore,
+      reviewSubmitted: false,
+      reviewError: false,
     };
   },
 
   methods: {
     fetchData() {
       const userId = this.$route.params.id;
-      
+
       axios
         .get(`http://127.0.0.1:8000/api/profile/${userId}`)
         .then((response) => {
@@ -34,6 +51,42 @@ export default {
           console.error("Error fetching data:", error);
         });
     },
+
+    submitReview() {
+      const userId = this.$route.params.id;
+
+      axios
+        .post(`http://127.0.0.1:8000/api/reviews`, {
+          user_id: userId,
+          name: this.reviewName,
+          surname: this.reviewSurname,
+          text: this.reviewText,
+          score: this.reviewScore,
+        })
+        .then((response) => {
+          this.reviewSubmitted = true;
+          this.reviewError = false;
+
+          // Resetta i campi del form dopo l'invio
+          this.reviewName = "";
+          this.reviewSurname = "";
+          this.reviewText = "";
+          this.reviewScore = this.initialScore;
+          this.reviewSubmitted = true;
+
+          setTimeout(() => {
+            this.reviewSubmitted = false;
+            this.$refs.starRating.resetStar();
+          }, 1000);
+        })
+
+        .catch((error) => {
+          console.error("Error submitting review:", error.response);
+          this.reviewError = true;
+          this.reviewSubmitted = false;
+        });
+    },
+
     getImageUrl(photo) {
       return `http://127.0.0.1:8000/storage/${photo}`;
     },
@@ -41,7 +94,7 @@ export default {
     onFormSubmit() {
       this.formData.user_id = this.profile.user_id;
 
-      axios.post("http://localhost:8000/api/messages", this.formData )
+      axios.post("http://localhost:8000/api/messages", this.formData)
         .then((response) => {
           this.success = response.data.message;
           this.errors = null;
@@ -49,7 +102,10 @@ export default {
         .catch((error) => {
           this.errors = error.response?.data?.message ?? error.message;
         })
-    }
+    },
+    updateReviewScore(score) {
+      this.reviewScore = score;
+    },
   },
 
   mounted() {
@@ -119,6 +175,46 @@ export default {
       <div class="alert alert-success" v-else>{{ this.success }}</div>
     </div>
   </div>
+
+
+
+
+
+  <!-- Form recensione: -->
+  <div class="card-body">
+    <form @submit.prevent="submitReview">
+      <div class="mb-3">
+        <label for="score" class="form-label">Voto:</label>
+        <star-rating :initial-score="reviewScore" @update-score="updateReviewScore" ref="starRating" />
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" v-model="reviewName" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="surname" class="form-label">Cognome:</label>
+        <input type="text" v-model="reviewSurname" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Recensione:</label>
+        <textarea v-model="reviewText" class="form-control" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Invia Recensione</button>
+    </form>
+
+    <!-- Messaggio di conferma o errore -->
+    <div v-if="reviewSubmitted">
+      <p class="mt-3 text-success">Recensione inviata con successo!</p>
+    </div>
+    <div v-if="reviewError">
+      <p class="mt-3 text-danger">
+        Si è verificato un errore durante l'invio della recensione.
+      </p>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -163,5 +259,25 @@ export default {
 
 .card-text {
   margin-bottom: 8px;
+}
+
+/* Aggiunti stili per il componente StarRating */
+.rating {
+  font-size: 1.25rem;
+  /* Imposta la dimensione del font delle stelle */
+}
+
+.stars-container {
+  color: #ffc107;
+  /* Colore delle stelle vuote */
+}
+
+.star {
+  cursor: pointer;
+}
+
+.star.selected {
+  color: #fdcc0d;
+  /* Colore delle stelle piene */
 }
 </style>
