@@ -11,7 +11,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/index",
+    path: "/index/:specialization?",
     name: "index",
     component: IndexPage,
   },
