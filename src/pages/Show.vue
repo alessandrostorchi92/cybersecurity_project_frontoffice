@@ -117,7 +117,7 @@ export default {
 <template>
   <div class="full-screen-card">
     <div class="card">
-      <img :src="getImageUrl(profile.photo)" class="card-img-top" alt="Profile Image" />
+      <img v-if="profile.photo" :src="getImageUrl(profile.photo)" class="card-img-top" alt="Profile Image" />
       <div class="card-body">
         <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
         <p class="card-text">Email: {{ user.email }}</p>
@@ -174,45 +174,44 @@ export default {
       <!-- messaggio invio SE a buon fine -->
       <div class="alert alert-success" v-else>{{ this.success }}</div>
     </div>
-  </div>
 
+    <h1 class="pt-5">Scrivimi una recensione!</h1>
 
+    <!-- Form recensione: -->
+    <div class="card-body">
+      <form @submit.prevent="submitReview">
 
+        <div class="mb-3">
+          <label for="score" class="form-label">Voto:</label>
+          <star-rating :initial-score="reviewScore" @update-score="updateReviewScore" ref="starRating" />
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome:</label>
+          <input type="text" v-model="reviewName" class="form-control" required />
+        </div>
 
+        <div class="mb-3">
+          <label for="surname" class="form-label">Cognome:</label>
+          <input type="text" v-model="reviewSurname" class="form-control" required />
+        </div>
 
-  <!-- Form recensione: -->
-  <div class="card-body">
-    <form @submit.prevent="submitReview">
-      <div class="mb-3">
-        <label for="score" class="form-label">Voto:</label>
-        <star-rating :initial-score="reviewScore" @update-score="updateReviewScore" ref="starRating" />
+        <div class="mb-3">
+          <label for="text" class="form-label">Recensione:</label>
+          <textarea v-model="reviewText" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Invia Recensione</button>
+      </form>
+
+      <!-- Messaggio di conferma o errore -->
+      <div v-if="reviewSubmitted">
+        <p class="mt-3 text-success">Recensione inviata con successo!</p>
       </div>
-      <div class="mb-3">
-        <label for="name" class="form-label">Nome:</label>
-        <input type="text" v-model="reviewName" class="form-control" required />
+      <div v-if="reviewError">
+        <p class="mt-3 text-danger">
+          Si è verificato un errore durante l'invio della recensione.
+        </p>
       </div>
-
-      <div class="mb-3">
-        <label for="surname" class="form-label">Cognome:</label>
-        <input type="text" v-model="reviewSurname" class="form-control" required />
-      </div>
-
-      <div class="mb-3">
-        <label for="text" class="form-label">Recensione:</label>
-        <textarea v-model="reviewText" class="form-control" required></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Invia Recensione</button>
-    </form>
-
-    <!-- Messaggio di conferma o errore -->
-    <div v-if="reviewSubmitted">
-      <p class="mt-3 text-success">Recensione inviata con successo!</p>
-    </div>
-    <div v-if="reviewError">
-      <p class="mt-3 text-danger">
-        Si è verificato un errore durante l'invio della recensione.
-      </p>
     </div>
   </div>
 </template>
