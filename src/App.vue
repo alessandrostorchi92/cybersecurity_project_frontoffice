@@ -57,12 +57,6 @@ export default {
 
 .navigation-menu {
   display: flex;
-  //align-items: center;
-  //background: rgba(0, 0, 0, 0.3);
-  //padding:1rem;
-  //margin-left: 2rem;
-  //margin-right: 2rem;
-  //height: 4rem;
 }
 
 .logo-column{
@@ -79,13 +73,17 @@ export default {
   flex-grow: 1; /* Flessibilità per far crescere lo spazio disponibile */
   display: flex;
   justify-content: flex-end;
-  width: 66.67%;
+  width: 60.63%;
   padding: 1rem;
+  margin-right: 6rem;
 }
 
 .menu-items a {
-  color: #fff; /* Colore del testo delle voci del menu */
+  color: #b0b1b2; /* Colore del testo delle voci del menu */
   text-decoration: none;
-  margin-left: 20px; /* Spaziatura tra le voci del menu */
+}
+.menu-items a:hover{
+  border-bottom: 3px solid #27CDF2 ;
+  color: black;
 }
 </style>
