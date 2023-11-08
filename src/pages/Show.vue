@@ -6,6 +6,12 @@ export default {
     return {
       profile: {},
       user: {},
+      reviewName: "",
+      reviewSurname: "",
+      reviewText: "",
+      reviewScore: 1,
+      reviewSubmitted: false,
+      reviewError: false,
     };
   },
 
@@ -23,6 +29,35 @@ export default {
           console.error("Error fetching data:", error);
         });
     },
+
+    submitReview() {
+      const userId = this.$route.params.id;
+
+      axios
+        .post(`http://127.0.0.1:8000/api/reviews`, {
+          user_id: userId,
+          name: this.reviewName,
+          surname: this.reviewSurname,
+          text: this.reviewText,
+          score: this.reviewScore,
+        })
+        .then((response) => {
+          this.reviewSubmitted = true;
+          this.reviewError = false;
+
+          // Resetta i campi del form dopo l'invio
+          this.reviewName = "";
+          this.reviewSurname = "";
+          this.reviewText = "";
+          this.reviewScore = 1;
+        })
+        .catch((error) => {
+          console.error("Error submitting review:", error.response);
+          this.reviewError = true;
+          this.reviewSubmitted = false;
+        });
+    },
+
     getImageUrl(photo) {
       return `http://127.0.0.1:8000/storage/${photo}`;
     },
@@ -57,6 +92,54 @@ export default {
         <p class="card-text">Location: {{ profile.location }}</p>
         <p class="card-text">Descrizione: {{ profile.description }}</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Form recensione: -->
+  <div class="card-body">
+    <form @submit.prevent="submitReview">
+      <div class="mb-3">
+        <label for="score" class="form-label">Voto:</label>
+        <input
+          type="number"
+          v-model="reviewScore"
+          class="form-control"
+          min="1"
+          max="5"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" v-model="reviewName" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="surname" class="form-label">Cognome:</label>
+        <input
+          type="text"
+          v-model="reviewSurname"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Recensione:</label>
+        <textarea v-model="reviewText" class="form-control" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Invia Recensione</button>
+    </form>
+
+    <!-- Messaggio di conferma o errore -->
+    <div v-if="reviewSubmitted">
+      <p class="mt-3 text-success">Recensione inviata con successo!</p>
+    </div>
+    <div v-if="reviewError">
+      <p class="mt-3 text-danger">
+        Si è verificato un errore durante l'invio della recensione.
+      </p>
     </div>
   </div>
 </template>
