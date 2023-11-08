@@ -1,7 +1,18 @@
 <script>
 import axios from "axios";
+import StarRating from "../components/StarRating.vue";
 
 export default {
+  components: {
+    StarRating,
+  },
+
+  props: {
+    initialScore: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       profile: {},
@@ -9,7 +20,7 @@ export default {
       reviewName: "",
       reviewSurname: "",
       reviewText: "",
-      reviewScore: 1,
+      reviewScore: this.initialScore,
       reviewSubmitted: false,
       reviewError: false,
     };
@@ -49,8 +60,15 @@ export default {
           this.reviewName = "";
           this.reviewSurname = "";
           this.reviewText = "";
-          this.reviewScore = 1;
+          this.reviewScore = this.initialScore;
+          this.reviewSubmitted = true;
+
+          setTimeout(() => {
+            this.reviewSubmitted = false;
+            this.$refs.starRating.resetStar();
+          }, 1000);
         })
+
         .catch((error) => {
           console.error("Error submitting review:", error.response);
           this.reviewError = true;
@@ -60,6 +78,10 @@ export default {
 
     getImageUrl(photo) {
       return `http://127.0.0.1:8000/storage/${photo}`;
+    },
+
+    updateReviewScore(score) {
+      this.reviewScore = score;
     },
   },
 
@@ -100,13 +122,10 @@ export default {
     <form @submit.prevent="submitReview">
       <div class="mb-3">
         <label for="score" class="form-label">Voto:</label>
-        <input
-          type="number"
-          v-model="reviewScore"
-          class="form-control"
-          min="1"
-          max="5"
-          required
+        <star-rating
+          :initial-score="reviewScore"
+          @update-score="updateReviewScore"
+          ref="starRating"
         />
       </div>
       <div class="mb-3">
@@ -182,5 +201,22 @@ export default {
 
 .card-text {
   margin-bottom: 8px;
+}
+
+/* Aggiunti stili per il componente StarRating */
+.rating {
+  font-size: 1.25rem; /* Imposta la dimensione del font delle stelle */
+}
+
+.stars-container {
+  color: #ffc107; /* Colore delle stelle vuote */
+}
+
+.star {
+  cursor: pointer;
+}
+
+.star.selected {
+  color: #fdcc0d; /* Colore delle stelle piene */
 }
 </style>
