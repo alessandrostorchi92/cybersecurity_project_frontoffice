@@ -23,11 +23,12 @@ export default {
         surname: "",
         email: "",
         description: "",
-        user_id: ""
+        user_id: "",
       },
 
       errors: null,
       success: null,
+      reviewSuccess: null,
       reviewName: "",
       reviewSurname: "",
       reviewText: "",
@@ -64,26 +65,19 @@ export default {
           score: this.reviewScore,
         })
         .then((response) => {
-          this.reviewSubmitted = true;
-          this.reviewError = false;
+          this.reviewSuccess = "Recensione inviata con successo!";
 
           // Resetta i campi del form dopo l'invio
           this.reviewName = "";
           this.reviewSurname = "";
           this.reviewText = "";
           this.reviewScore = this.initialScore;
-          this.reviewSubmitted = true;
-
-          setTimeout(() => {
-            this.reviewSubmitted = false;
-            // this.$refs.starRating.resetStar();
-          }, 1000);
         })
 
         .catch((error) => {
           console.error("Error submitting review:", error.response);
           this.reviewError = true;
-          this.reviewSubmitted = false;
+          this.reviewSuccess = null;
         });
     },
 
@@ -94,14 +88,15 @@ export default {
     onFormSubmit() {
       this.formData.user_id = this.profile.user_id;
 
-      axios.post("http://localhost:8000/api/messages", this.formData)
+      axios
+        .post("http://localhost:8000/api/messages", this.formData)
         .then((response) => {
           this.success = response.data.message;
           this.errors = null;
         })
         .catch((error) => {
           this.errors = error.response?.data?.message ?? error.message;
-        })
+        });
     },
     updateReviewScore(score) {
       this.reviewScore = score;
@@ -117,7 +112,12 @@ export default {
 <template>
   <div class="full-screen-card">
     <div class="card">
-      <img v-if="profile.photo" :src="getImageUrl(profile.photo)" class="card-img-top" alt="Profile Image" />
+      <img
+        v-if="profile.photo"
+        :src="getImageUrl(profile.photo)"
+        class="card-img-top"
+        alt="Profile Image"
+      />
       <div class="card-body">
         <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
         <p class="card-text">Email: {{ user.email }}</p>
@@ -136,36 +136,39 @@ export default {
     </div>
   </div>
 
-
   <!-- SEZIONE MESSAGGI -->
   <div class="container">
     <div class="row">
       <h1 class="pt-5">Contattami!</h1>
 
       <!-- messaggio errore -->
-      <div class="alert alert-danger" v-if="errors">Sembra che tu non abbia compilato tutti i campi. Riprova!</div>
+      <div class="alert alert-danger" v-if="errors">
+        Sembra che tu non abbia compilato tutti i campi. Riprova!
+      </div>
 
       <!-- form -->
       <form @submit.prevent="onFormSubmit" v-if="!success">
-
         <div class="mb-3">
           <label>Nome</label>
-          <input type="text" class="form-control" v-model="formData.name">
+          <input type="text" class="form-control" v-model="formData.name" />
         </div>
 
         <div class="mb-3">
           <label>Cognome</label>
-          <input type="text" class="form-control" v-model="formData.surname">
+          <input type="text" class="form-control" v-model="formData.surname" />
         </div>
 
         <div class="mb-3">
           <label>Email</label>
-          <input type="text" class="form-control" v-model="formData.email">
+          <input type="text" class="form-control" v-model="formData.email" />
         </div>
 
         <div class="mb-3">
           <label>Messaggio</label>
-          <textarea class="form-control" v-model="formData.description"></textarea>
+          <textarea
+            class="form-control"
+            v-model="formData.description"
+          ></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary mb-3">Invia</button>
@@ -179,39 +182,54 @@ export default {
 
     <!-- Form recensione: -->
     <div class="card-body">
-      <form @submit.prevent="submitReview">
-
+      <form @submit.prevent="submitReview" v-if="!reviewSuccess">
         <div class="mb-3">
           <label for="score" class="form-label">Voto:</label>
-          <star-rating :initial-score="reviewScore" @update-score="updateReviewScore" ref="starRating" />
+          <star-rating
+            :initial-score="reviewScore"
+            @update-score="updateReviewScore"
+            ref="starRating"
+          />
         </div>
         <div class="mb-3">
           <label for="name" class="form-label">Nome:</label>
-          <input type="text" v-model="reviewName" class="form-control" required />
+          <input
+            type="text"
+            v-model="reviewName"
+            class="form-control"
+            required
+          />
         </div>
 
         <div class="mb-3">
           <label for="surname" class="form-label">Cognome:</label>
-          <input type="text" v-model="reviewSurname" class="form-control" required />
+          <input
+            type="text"
+            v-model="reviewSurname"
+            class="form-control"
+            required
+          />
         </div>
 
         <div class="mb-3">
           <label for="text" class="form-label">Recensione:</label>
-          <textarea v-model="reviewText" class="form-control" required></textarea>
+          <textarea
+            v-model="reviewText"
+            class="form-control"
+            required
+          ></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Invia Recensione</button>
       </form>
 
       <!-- Messaggio di conferma o errore -->
-      <div v-if="reviewSubmitted">
-        <p class="mt-3 text-success">Recensione inviata con successo!</p>
-      </div>
-      <div v-if="reviewError">
-        <p class="mt-3 text-danger">
-          Si è verificato un errore durante l'invio della recensione.
-        </p>
-      </div>
+      <div class="alert alert-success" v-else>{{ this.reviewSuccess }}</div>
+    </div>
+    <div v-if="reviewError">
+      <p class="mt-3 text-danger">
+        Si è verificato un errore durante l'invio della recensione.
+      </p>
     </div>
   </div>
 </template>
