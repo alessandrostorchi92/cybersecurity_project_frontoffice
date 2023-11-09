@@ -38,16 +38,18 @@ export default {
 			<div class="col-lg-4 col-12 categories-bg text-center ">
 								
 				<header class="header">
-					<h1 class="title ">Cyber Security</h1>
-					<p class="description  p-3">
-						La tua sicurezza informatica è di fondamentale importanza. Grazie alla nostra ricerca avanzata, puoi scoprire esperti specializzati nella tua zona, leggere le recensioni dei clienti e richiedere facilmente una consulenza. Con Cyber Security, avrai accesso a una rete di esperti affidabili pronti a proteggere il tuo mondo digitale. Non lasciare nulla al caso, affidati a noi per garantire la tua tranquillità online.
+					
+					<strong><h1 class="title">Cyber Security</h1></strong>
+				
+					<p class="description  ps-5 pe-5">
+						La tua sicurezza informatica è fondamentale. Scopri esperti specializzati, leggi recensioni e richiedi consulenza con Cyber Security. Proteggi il tuo mondo digitale con noi.
 					</p>
-					<router-link to="/index" class="btn ">Find Experts</router-link>
+					<!-- <router-link to="/index" class="btn ">Find Experts</router-link> -->
 				</header>
 				<!-- Contenuto delle categorie -->
 				<div class="">
 					<div class="text-center mt-5">
-						<h5>Cerca la Categoria Desiderata</h5>
+						<h5 class="title-cat-color">Cerca la Categoria Desiderata</h5>
 					</div>
 					<div class="d-flex justify-content-center">
 						<div class="badge-container text-center">
@@ -70,38 +72,54 @@ export default {
 
 			
 			<div class="col-lg-8 col-12 ">
+				<div class="row">
+					<div class="col-6"></div>
+		
+					<div class="col-5">
+						<header class="header text-center ">
+							<h2 class="slogan text-end">Sicurezza Digitale su Misura</h2>
+							<h4 class="slogan-font-color text-end mb-5">
+								La Tua Difesa Online
+							</h4>
+							<div class="text-end">
+							<router-link to="/index" class="btn">Cerca Esperto </router-link>
+						</div>
+						</header>
+					</div>
+				</div>
+		
 
 				<!-- bootstrap card -->
 
 				<div class="scrolling-container  d-flex ">
 					
 						<!-- Contenuto della Card 1 -->
-						<div class="card me-5" style="min-width: 18rem;">
+						<div class="card bg-card me-5" style="min-width: 18rem;">
 							<img src="/profile-pic.webp" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-text text-center">Nome Esperto</h5>
 							</div>
 						</div>
 						<!------------------------->
-						<div class="card me-5" style="min-width: 18rem;">
+						<div class="card bg-card me-5" style="min-width: 18rem;">
 							<img src="/profile-pic.webp" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-text text-center">Nome Esperto</h5>
 							</div>
 						</div>
-						<div class="card me-5" style="min-width: 18rem;">
+						<div class="card bg-card me-5" style="min-width: 18rem;">
 							<img src="/profile-pic.webp" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-text text-center">Nome Esperto</h5>
 							</div>
 						</div>
-						<div class="card me-5" style="min-width: 18rem;">
+						<div class="card bg-card me-5" style="min-width: 18rem;">
 							<img src="/profile-pic.webp" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-text text-center">Nome Esperto</h5>
 							</div>
 						</div>
-						<div class="card me-5" style="min-width: 18rem;">
+						<div class="card bg-card me-5" style="min-width: 18rem;">
 							<img src="/profile-pic.webp" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-text text-center">Nome Esperto</h5>
@@ -120,21 +138,37 @@ export default {
 
 </template>
 
+
 <style lang="scss" scoped>
+
+.slogan{
+	color:#27CDF2;
+	margin-bottom: 0;
+
+}
+.slogan h4{
+	margin-top: -1.5rem;
+}
+.slogan-font-color{
+	color: #b0b1b2;
+
+}
+
 .title{
 	font-size: 4rem;
+	color: #27CDF2;
 
 }
 .description{
-	color: white;
-
+	//color: white;
+	color: #b0b1b2;
 }
 
 
 .btn {
 	cursor: pointer;
 	background-color: rgb(37, 37, 37);
-	color: #fff;
+	color: #27CDF2;
 	padding: 10px 20px;
 	font-size: 1.2rem;
 	text-decoration: none;
@@ -157,9 +191,13 @@ export default {
 	/* Evita che le card si spezzino su più righe */
 	overflow-x: auto;
 	white-space: nowrap;
-	margin-top: 32rem;
+	margin-top: 22rem;
 	margin-left: 2rem;
 	
+}
+.bg-card{
+	background-color:rgba(51, 51, 51, 0.9) ;
+	color: #b0b1b2;;
 }
 
 
@@ -170,6 +208,10 @@ export default {
 	background-color: rgba(51, 51, 51, 0.9);
 	color: #fff;
 	height: 100vh;
+}
+.title-cat-color{
+	color: #b0b1b2;;
+
 }
 
 
@@ -196,7 +238,7 @@ export default {
 	display: inline-block;
 	padding: 8px 10px;
 	background-color: rgb(37, 37, 37);
-	color: white;
+	color: #b0b1b2;
 
 }
 
@@ -205,7 +247,7 @@ export default {
 .description-tooltip {
 	background-color: rgb(37, 37, 37);
 	border-radius: 15px;
-	color: #fff;
+	color: #b0b1b2;
 	padding: 10px;
 	text-align: center;
 	max-width: 100%;
