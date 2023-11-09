@@ -76,7 +76,7 @@ export default {
 
           setTimeout(() => {
             this.reviewSubmitted = false;
-            this.$refs.starRating.resetStar();
+            // this.$refs.starRating.resetStar();
           }, 1000);
         })
 
