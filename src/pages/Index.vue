@@ -6,24 +6,57 @@ export default {
     return {
       profiles: [],
       specializations: [],
+      minAverageScore: 0,
     };
   },
+
+  watch: {
+    minAverageScore: function () {
+      this.fetchDataProfile();
+    },
+  },
+
   methods: {
-    fetchDataProfile() {
+    async fetchDataProfile() {
+      console.log("Chiamato fetchDataProfile");
+
+      await this.fetchSpecializationData();
+      await this.fetchScoreFilterData();
+    },
+
+    async fetchSpecializationData() {
       const specializationName = this.$route.params.specialization;
-      if (specializationName) {
-        axios
-          .get(
-            `http://127.0.0.1:8000/api/users/specialization/${specializationName}`
-          )
-          .then((response) => {
-            this.profiles = response.data.data;
-          });
-      } else {
-        // Se nessuna specializzazione è selezionata, ottieni tutti i profili
-        axios.get("http://127.0.0.1:8000/api/users").then((response) => {
-          this.profiles = response.data.data;
-        });
+      const apiUrlSpecialization = specializationName
+        ? `http://127.0.0.1:8000/api/users/specialization/${specializationName}`
+        : null;
+
+      try {
+        if (apiUrlSpecialization) {
+          const response = await axios.get(apiUrlSpecialization);
+          console.log("Risposta API Specializzazione:", response.data);
+          // Gestisci la risposta come necessario
+          // this.specializationData = response.data.data;
+        }
+      } catch (error) {
+        console.error(
+          "Errore durante il recupero dei dati di specializzazione:",
+          error
+        );
+      }
+    },
+
+    async fetchScoreFilterData() {
+      const apiUrlScoreFilter = `http://127.0.0.1:8000/api/profile/scoreFilter/${this.minAverageScore}`;
+
+      try {
+        const response = await axios.get(apiUrlScoreFilter);
+        console.log("Risposta API Filtro Voti:", response.data);
+        this.profiles = response.data.data;
+      } catch (error) {
+        console.error(
+          "Errore durante il recupero dei dati del filtro dei voti:",
+          error
+        );
       }
     },
 
@@ -31,6 +64,7 @@ export default {
       return `http://127.0.0.1:8000/storage/${photo}`;
     },
   },
+
   mounted() {
     this.fetchDataProfile();
   },
@@ -55,6 +89,13 @@ export default {
         </p>
         <router-link to="/" class="btn">Torna Indietro</router-link>
       </header>
+      <label for="minAverageScore">Seleziona Media Voti:</label>
+      <select v-model="minAverageScore" @change="fetchDataProfile">
+        <option value="0">Mostra tutti</option>
+        <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
+          {{ score }}
+        </option>
+      </select>
     </div>
 
     <div class="col-lg-8 col-12">
@@ -92,6 +133,7 @@ export default {
               <div class="card-body">
                 <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
                 <div v-if="user.profile">
+                  <p>Media: {{ user.average_score || "N/A" }}</p>
                   <div>
                     <p>Location: {{ user.profile.location }}</p>
                     <p>Skills: {{ user.profile.skills }}</p>
