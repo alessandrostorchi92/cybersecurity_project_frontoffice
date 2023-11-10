@@ -81,14 +81,57 @@ export default {
 
               </div>
               <!-- ---------slide-3----------- -->
-              <div v-else-if="currentSlide === 3" class="slide" id="slide-3">
-                <h2>Analisi e Ricerca </h2>
-                <p>Analisi e Ricerca</p>
+              <div v-else-if="currentSlide === 3" class="slide col-10 " id="slide-3">
+                <h2 class="title mt-5 mb-3 pt-5">Analisi Layout </h2>
+                <p class="description mb-5">Layout organizzato e pulito che separa chiaramente la sezione sinistra, contenente una dettagliata descrizione della pagina, dalla parte destra, suddivisa in una navigazione strutturata e un'area principale contenente le funzionalità presentate attraverso eleganti card di Bootstrap.</p>
+              <!--  -->
+              <div class="container-fluid border border-secondary border-4">
+                <div class="row">
+                  <!-- Sidebar (col-4) -->
+                  <div class="col-4 sidebar">
+                    <!-- Contenuto della sidebar -->
+                    <h5 class="mt-1">Sidbar</h5>
+                    <p class="description"> Dettagli Esplicativi della paggina.</p>
+                  </div>
+              
+                  <!-- Col-8 per Navbar e Main -->
+                  <div class="col-8 ">
+                    <!-- Navbar (row-1) -->
+                    <div class="row bg-nav" style="height: 16%;" >
+                      <div class="col-12">
+                        <!-- Contenuto della navbar -->
+                        <h5 class="mt-1">NavBar</h5>
+                    <p class="description"> Accesso Rapido alle Sessioni.</p>
+                      </div>
+                    </div>
+              
+                    <!-- Main (row-2) -->
+                    <div class="row bg-main" style="height: 85%;">
+                      <div class="col-12 ">
+                        <!-- Contenuto principale -->
+                        <h5 class="mt-1">Main</h5>
+                    <p class="description"> Funzionalità Chiave mediante Carte di Bootstrap.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--  -->
+
+                <button class="btn me-4 mt-5" @click="prevSlide">Indietro</button>
+                <button class="btn mt-5" @click="nextSlide">Prossima Slide</button>
+              </div>
+              <!-- ------------slide-4--------- -->
+              <div v-else-if="currentSlide === 4" class="slide" id="slide-4">
+                <h2>Progetto</h2>
+                <p></p>
                 <button class="btn me-4" @click="prevSlide">Indietro</button>
                 <button class="btn" @click="nextSlide">Prossima Slide</button>
               </div>
 
             </div>
+            
 
 
 
@@ -102,6 +145,9 @@ export default {
   <!-- ------------- -->
 </template>
 <style lang="scss" scoped>
+
+
+
 /* stili per full body background */
 .presentation-left {
   background-color: #202426;
@@ -188,7 +234,7 @@ export default {
 }
 
 /*------------------------------------*/
-/* stili specifici per la prima slide-1 */
+/* stili specifici per la prima slide-2 */
 #slide-2 {
 
   .title {
@@ -216,5 +262,79 @@ export default {
     margin-top: 3rem;
   }
 }
+/* stili specifici per la prima slide-1 */
+#slide-3 {
+  lef-part{
+    background-color: #202426;
+    color: #fff;
+    height: 60vh;
+  }
+  .sidebar{
+    background-color: rgba(61, 64, 66, 0.5);
+    height: 25rem; 
+    overflow: hidden;
+    position: relative;
+  }
+  .sidebar:hover {
+    background-color: rgba(61, 64, 66, 0.9);
+  }
+  .sidebar p{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+  }
+  .sidebar:hover p{
+    display: block;
+  }
+  .bg-nav{
+    background-color: rgba(80, 103, 65, 0.5);
+    overflow: hidden;
+    position: relative;
+  }
+  .bg-nav:hover {
+    background-color: rgba(80, 103, 65, 0.9);
+  }
+  .bg-nav p{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+  .bg-nav:hover p{
+    display: block;
+  }
+  .bg-main{
+    background-color: rgba(142, 90, 151, 0.5);
+    overflow: hidden;
+    position: relative;
+  }
+  .bg-main:hover {
+    background-color: rgba(142, 90, 151, 0.9);
+  }
+  .bg-main p{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+  .bg-main:hover p{
+    display: block;
+  }
+  h5{
+    color: #1EBFCB;
+  }
 
-/*--------------------------------*/</style>
+}
+
+/*------------------------------------*/
+
+
+
+</style>
