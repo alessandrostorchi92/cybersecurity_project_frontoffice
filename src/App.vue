@@ -1,7 +1,11 @@
+
 <script>
+import Presentation from './components/Presentation.vue';
+
 
 export default {
   components: {
+    Presentation,
   },
 
   data() {
@@ -24,7 +28,7 @@ export default {
 
 <template>
   <header>
-
+  <Presentation></Presentation>
 
     <div class="navigation-menu">
 <!-- colonna col-4 con bg-scuro -->

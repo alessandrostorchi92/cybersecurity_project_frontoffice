@@ -141,6 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 
+
 .slogan{
 	color:#27CDF2;
 	margin-bottom: 0;
