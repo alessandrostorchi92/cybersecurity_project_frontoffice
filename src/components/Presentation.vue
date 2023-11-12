@@ -120,19 +120,57 @@ export default {
                   </div>
                 </div>
               </div>
-
               <!--  -->
-
                 <button class="btn me-4 mt-5" @click="prevSlide">Indietro</button>
                 <button class="btn mt-5" @click="nextSlide">Prossima Slide</button>
               </div>
-              <!-- ------------slide-4--------- -->
-              <div v-else-if="currentSlide === 4" class="slide" id="slide-4">
-                <h2>Progetto</h2>
-                <p></p>
+              <!-- ------------slide-4 project--------- -->
+              <div v-else-if="currentSlide === 4" class="slide col-10" id="slide-4">
+                
+                <div class="col-9">
+                <h2 class="title mt-5 pt-4">Architettura del Progetto</h2>
+                <p class="description">L'app è stata costruita con un <strong> backend</strong> robusto utilizzando <strong>Laravel</strong> , assicurando affidabilità e prestazioni ottimali. Per il <strong>frontend</strong> , abbiamo adottato <strong> Vue.js</strong>, garantendo un'interfaccia moderna e intuitiva per un'esperienza utente all'avanguardia.</p>
+              </div>
+                <!-- ----------- -->
+                <h2 class="text-start  ms-3">Laravel: <span class="sottotitolo"> Il Cuore del Back-End</span></h2>
+                <div class="d-flex">
+                  <div class="col-4 p-1 index-bg">
+                    <h6 class="info">Routes, Controllers, Models</h6>
+                    <p class="description">Organizziamo la nostra logica di gestione delle richieste utilizzando Routes per definire le rotte, Controllers per gestire la logica, e Models per interagire con il database. 
+                    </p>
+
+                  </div>
+                  <div class="col-4 p-1 index-bg">
+                    <h6 class="info">Database Migrations e Seeders</h6>
+                    <p class="description">Strutturiamo il nostro database in modo incrementale e gestibile con le migrations, mentre i seeders ci permettono di popolare il database con dati di esempio.
+                      </p>
+                  </div>
+
+                </div>
+
+                <h2 class="text-start ms-3">Vue JS: <span class="sottotitolo"> L'Arte del Front-End Interattivo</span></h2>
+                <div class="d-flex">
+                  <div class="col-4 p-1 index-bg">
+                    <h6 class="info">Componenti Vue</h6>
+                    <p class="description">Abbiamo abbracciato l'approccio modulare utilizzando i componenti Vue.js, che ci consentono di creare interfacce utente flessibili e riutilizzabili.
+                    </p>
+
+                  </div>
+                  <div class="col-4 p-1 index-bg">
+                    <h6 class="info">Vue Router</h6>
+                    <p class="description"> La gestione della navigazione client-side con Vue Router, per migliorare l'esperienza utente senza dover ricaricare la pagina.
+                      </p>
+                  </div>
+
+
+                </div>
+
+                <!-- ----------- -->
+                <div class="col-9">
                 <button class="btn me-4" @click="prevSlide">Indietro</button>
                 <button class="btn" @click="nextSlide">Prossima Slide</button>
               </div>
+            </div>
 
             </div>
             
@@ -268,7 +306,7 @@ export default {
     margin-top: 3rem;
   }
 }
-/* stili specifici per la prima slide-1 */
+/* stili specifici per la prima slide-3 */
 #slide-3 {
   lef-part{
     background-color: #202426;
@@ -338,6 +376,40 @@ export default {
   }
 
 
+}
+/*-----------slide-4 progetto-------*/
+#slide-4{
+  .title{
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .description {
+    margin-bottom: 1rem;
+  }
+
+  .index-bg {
+    height: 10rem;
+    background-color: rgba(51, 51, 51, 0.5);
+    border-left: 10px solid rgb(31, 192, 204, );
+    ;
+    border-radius: 10px;
+    margin: 1rem;
+  }
+  .index-bg:hover {
+    background-color:  rgba(51, 51, 51, 0.9);
+  }
+
+  .btn {
+    margin-top: 1rem;
+  }
+  .sottotitolo{
+    font-size: 1.5rem;
+    color: #b0b1b2;
+  }
+  h2{
+    color: #1EBFCB;
+    margin-top: 2rem;
+  }
 }
 
 /*------------------------------------*/
