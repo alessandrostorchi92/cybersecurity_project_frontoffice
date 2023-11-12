@@ -83,25 +83,29 @@ export default {
               <!-- ---------slide-3----------- -->
               <div v-else-if="currentSlide === 3" class="slide col-10 " id="slide-3">
                 <h2 class="title mt-5 mb-3 pt-5">Analisi Layout </h2>
-                <p class="description mb-5">Layout organizzato e pulito che separa chiaramente la sezione sinistra, contenente una dettagliata descrizione della pagina, dalla parte destra, suddivisa in una navigazione strutturata e un'area principale contenente le funzionalità presentate attraverso eleganti card di Bootstrap.</p>
+                <p class="description mb-5">Layout organizzato e pulito che separa chiaramente <strong>la sezione sinistra</strong> , contenente una dettagliata descrizione della pagina, dalla <strong> parte destra</strong>, suddivisa in una <strong>navigazione</strong> strutturata e <strong>un'area principale</strong> contenente le funzionalità presentate attraverso eleganti <strong> card di Bootstrap</strong>.</p>
               <!--  -->
               <div class="container-fluid border border-secondary border-4">
                 <div class="row">
                   <!-- Sidebar (col-4) -->
-                  <div class="col-4 sidebar">
+                  <!-- <div class="border-on-hover text-start" >la parte sinistra</div> -->
+                  <div class="col-4 sidebar sinistra">
                     <!-- Contenuto della sidebar -->
                     <h5 class="mt-1">Sidbar</h5>
-                    <p class="description"> Dettagli Esplicativi della paggina.</p>
+                    <p class="description"><strong>Dettagli Esplicativi della paggina.</strong></p>
                   </div>
               
                   <!-- Col-8 per Navbar e Main -->
-                  <div class="col-8 ">
+                  
+                  <div class="col-8 destra">
                     <!-- Navbar (row-1) -->
                     <div class="row bg-nav" style="height: 16%;" >
+                      
                       <div class="col-12">
                         <!-- Contenuto della navbar -->
-                        <h5 class="mt-1">NavBar</h5>
-                    <p class="description"> Accesso Rapido alle Sessioni.</p>
+                        <div class="bordedestra-on-hover"> </div>
+                        <h5 class="mt-1">NavBar </h5>
+                    <p class="description"><strong>Accesso Rapido alle Sessioni.</strong> </p>
                       </div>
                     </div>
               
@@ -110,7 +114,7 @@ export default {
                       <div class="col-12 ">
                         <!-- Contenuto principale -->
                         <h5 class="mt-1">Main</h5>
-                    <p class="description"> Funzionalità Chiave mediante Carte di Bootstrap.</p>
+                    <p class="description"><strong>Funzionalità Chiave mediante Carte di Bootstrap.</strong></p>
                       </div>
                     </div>
                   </div>
@@ -149,6 +153,8 @@ export default {
 
 
 /* stili per full body background */
+
+
 .presentation-left {
   background-color: #202426;
   color: #fff;
@@ -330,6 +336,7 @@ export default {
   h5{
     color: #1EBFCB;
   }
+
 
 }
 
