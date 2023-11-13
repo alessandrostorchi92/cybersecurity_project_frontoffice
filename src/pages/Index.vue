@@ -5,37 +5,27 @@ export default {
   data() {
     return {
       profiles: [],
+      average_score: 0,
       specializations: [],
       minAverageScore: 0,
+      specializationId: 0,
+      minReviewCount: 0,
     };
   },
-
-  watch: {
-    minAverageScore: function () {
-      this.fetchDataProfile();
-    },
-  },
-
   methods: {
     async fetchDataProfile() {
-      console.log("Chiamato fetchDataProfile");
-
-      await this.fetchSpecializationData();
-      await this.fetchScoreFilterData();
+      this.profiles = await this.fetchUsersBySpecialization();
     },
 
-    async fetchSpecializationData() {
-      const specializationName = this.$route.params.specialization;
-      const apiUrlSpecialization = specializationName
-        ? `http://127.0.0.1:8000/api/users/specialization/${specializationName}`
+    async fetchUsersBySpecialization() {
+      const apiUrlSpecialization = this.specializationId
+        ? `http://127.0.0.1:8000/api/users/specialization/${this.specializationId}`
         : null;
 
       try {
         if (apiUrlSpecialization) {
           const response = await axios.get(apiUrlSpecialization);
-          console.log("Risposta API Specializzazione:", response.data);
-          // Gestisci la risposta come necessario
-          // this.specializationData = response.data.data;
+          return response.data.data;
         }
       } catch (error) {
         console.error(
@@ -45,85 +35,122 @@ export default {
       }
     },
 
-    async fetchScoreFilterData() {
-      const apiUrlScoreFilter = `http://127.0.0.1:8000/api/profile/scoreFilter/${this.minAverageScore}`;
-
-      try {
-        const response = await axios.get(apiUrlScoreFilter);
-        console.log("Risposta API Filtro Voti:", response.data);
-        this.profiles = response.data.data;
-      } catch (error) {
-        console.error(
-          "Errore durante il recupero dei dati del filtro dei voti:",
-          error
-        );
-      }
-    },
-
     getImageUrl(photo) {
       return `http://127.0.0.1:8000/storage/${photo}`;
+    },
+
+    displayStars(averageScore) {
+      const roundedScore = Math.round(averageScore);
+      const starCount = 5;
+
+      // Creiamo una stringa di stelle basata sulla media dei voti utilizzando le icone di Font Awesome
+      const fullStar = '<i class="fas fa-star" style="color: #fdcc0d;"></i>';
+      const emptyStar = '<i class="far fa-star" style="color: #fdcc0d;"></i>';
+      const stars =
+        fullStar.repeat(roundedScore) +
+        emptyStar.repeat(starCount - roundedScore);
+
+      return `<span class="fa-stack fa-lg">${stars}</span>`;
     },
   },
 
   mounted() {
+    this.specializationId = this.$route.params.specialization;
     this.fetchDataProfile();
   },
 };
 </script>
 
 <template>
-  <div class="container-fluid"></div>
-  <div class="row">
-    <div class="col-lg-4 col-12 categories-bg text-center">
-      <header class="header">
-        <strong><h1 class="title">Cyber Security</h1></strong>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-4 categories-bg text-center">
+        <header class="header">
+          <strong><h1 class="title">Cyber Security</h1></strong>
 
-        <p class="description ps-5 pe-5">
-          Cyber Security è il punto di riferimento per esperti di sicurezza
-          altamente qualificati. I nostri professionisti sono i guardiani
-          digitali che proteggono il tuo mondo virtuale da minacce informatiche.
-          Con competenze avanzate in analisi dei dati, crittografia e difesa
-          cibernetica, ti offrono la tranquillità di navigare in modo sicuro nel
-          vasto mare digitale. Scopri gli esperti di sicurezza di Cyber Sentinel
-          e preparati a essere al sicuro online.
-        </p>
-        <router-link to="/" class="btn">Torna Indietro</router-link>
-      </header>
-      <label for="minAverageScore">Seleziona Media Voti:</label>
-      <select v-model="minAverageScore" @change="fetchDataProfile">
-        <option value="0">Mostra tutti</option>
-        <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
-          {{ score }}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-lg-8 col-12">
-      <div class="row">
-        <div class="col-6"></div>
-
-        <div class="col-5">
-          <header class="header text-center">
-            <h2 class="slogan text-end">Esperti di Sicurezza</h2>
-            <h4 class="slogan-font-color text-end mb-5">
-              Il Tuo Scudo Digitale nel Mondo Virtuale
-            </h4>
-            <div class="text-end">
-              <router-link to="/" class="btn"
-                >Controlla Disponibilita</router-link
+          <p class="description ps-5 pe-5">
+            Cyber Security è il punto di riferimento per esperti di sicurezza
+            altamente qualificati. I nostri professionisti sono i guardiani
+            digitali che proteggono il tuo mondo virtuale da minacce
+            informatiche. Con competenze avanzate in analisi dei dati,
+            crittografia e difesa cibernetica, ti offrono la tranquillità di
+            navigare in modo sicuro nel vasto mare digitale. Scopri gli esperti
+            di sicurezza di Cyber Sentinel e preparati a essere al sicuro
+            online.
+          </p>
+          <router-link to="/" class="btn">Torna Indietro</router-link>
+        </header>
+        <div class="row flex-column justify-content-center p-5">
+          <div class="col-4 pb-3">
+            <label for="minAverageScore" class="form-label"
+              >Seleziona Media Voti:</label
+            >
+            <select
+              v-model="minAverageScore"
+              @change="fetchDataProfile"
+              class="form-select"
+            >
+              <option value="0">Mostra tutti</option>
+              <option
+                v-for="score in [1, 2, 3, 4, 5]"
+                :key="score"
+                :value="score"
               >
-            </div>
-          </header>
+                {{ score }}
+              </option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="numeroRecensioni" class="form-label"
+              >Seleziona utenti con più di:</label
+            >
+            <select
+              v-model="minReviewCount"
+              @change="fetchDataProfile"
+              class="form-select"
+            >
+              <option value="0">Mostra tutti</option>
+              <option v-for="count in [1, 5, 10]" :key="count" :value="count">
+                {{ count }} recensioni
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <!-- bootstrap card -->
-
-      <div class="scrolling-container d-flex">
-        <!-- Visualizza le card degli utenti -->
+      <div class="col-lg-8 col-12">
         <div class="row">
+          <div class="col-6"></div>
+
+          <div class="col-5">
+            <header class="header text-center">
+              <h2 class="slogan text-end">Esperti di Sicurezza</h2>
+              <h4 class="slogan-font-color text-end mb-5">
+                Il Tuo Scudo Digitale nel Mondo Virtuale
+              </h4>
+              <div class="text-end">
+                <router-link to="/" class="btn"
+                  >Controlla Disponibilita</router-link
+                >
+              </div>
+            </header>
+          </div>
+        </div>
+
+        <!-- bootstrap card -->
+
+        <!-- Visualizza le card degli utenti -->
+        <div class="row scrolling-container">
           <div class="col-md-4" v-for="user in profiles" :key="user.id">
-            <div class="card mb-4">
+            <div
+              class="card mb-4"
+              v-if="
+                !isNaN(user.average_score) &&
+                user.average_score >= minAverageScore &&
+                !isNaN(user.review_count) &&
+                user.review_count >= minReviewCount
+              "
+            >
               <img
                 v-if="user.profile && user.profile.photo"
                 :src="getImageUrl(user.profile.photo)"
@@ -133,7 +160,16 @@ export default {
               <div class="card-body">
                 <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
                 <div v-if="user.profile">
-                  <p>Media: {{ user.average_score || "N/A" }}</p>
+                  <p>
+                    Valutazione:
+                    <span v-html="displayStars(user.average_score)"></span>
+                  </p>
+                  <p>
+                    Numero di recensioni:
+                    <span class="review-count">{{
+                      user.review_count || 0
+                    }}</span>
+                  </p>
                   <div>
                     <p>Location: {{ user.profile.location }}</p>
                     <p>Skills: {{ user.profile.skills }}</p>
@@ -155,12 +191,11 @@ export default {
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- -------------------------------- -->
+        <!-- -------------------------------- -->
+      </div>
     </div>
   </div>
-
   <!-- ------------------------------ -->
 </template>
 
