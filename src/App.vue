@@ -33,7 +33,7 @@ export default {
       <!-- colonna col-4 con bg-scuro -->
       <div class="row logo-column">
         <div class=" ">
-          <img src="public/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
+          <img src="/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
 
         </div>
       </div>
@@ -60,7 +60,6 @@ export default {
 }
 
 .logo-column {
-  background-color: rgba(51, 51, 51, 0.9);
   width: 33.73%;
   padding: 1rem;
 }

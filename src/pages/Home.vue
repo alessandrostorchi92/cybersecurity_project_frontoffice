@@ -46,7 +46,6 @@ export default {
 </script>
 
 <template>
-  <div class="container-fluid"></div>
   <div class="row">
     <div class="col-lg-4 col-12 categories-bg text-center">
       <header class="header">
@@ -73,7 +72,7 @@ export default {
             </div>
             <div v-for="(specialization, index) in specializations" :key="index"
               @click="selectSpecialization(specialization?.id)" @mouseover="showDescription(specialization)"
-              @mouseout="selectedSpecialization = null" class="badge-style">
+              @mouseout="selectedSpecialization = null" class="badge-style btn btn-primary">
               {{ specialization?.name }}
             </div>
             <div class="prev-arrow text-center">
@@ -105,7 +104,7 @@ export default {
 
       <!-- Stampa le card degli utenti che hanno una sponsorizzazione attiva -->
       <div v-for="user in premiumUsers" :key="user.id">
-        <div class="card my-3 bg-card" style="max-width: 18rem;">
+        <div class="card my-3 bg-card ms-4" style="max-width: 18rem;">
           <div class="card-body">
             <img :src="getImageUrl(user.profile.photo)" class="card-img-top mb-2" alt="Immagine dell'utente">
             <h5 class="card-title py-2">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i>
@@ -181,13 +180,14 @@ export default {
 }
 
 .bg-card {
-  background-color: rgba(51, 51, 51, 0.9);
+  background-color: rgba(51, 51, 51, 0.6);
   color: #b0b1b2;
 }
 
 /*----------------------*/
 .categories-bg {
-  background-color: rgba(51, 51, 51, 0.9);
+  border-top-right-radius: 40px;
+  background-color: rgba(51, 51, 51, 0.6);
   color: #fff;
   height: 100vh;
 }
