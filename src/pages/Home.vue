@@ -99,9 +99,6 @@ export default {
             <h4 class="slogan-font-color text-end mb-5">
               La Tua Difesa Online
             </h4>
-            <div class="text-end">
-              <router-link to="/index" class="btn">Cerca Esperto </router-link>
-            </div>
           </header>
         </div>
       </div>
@@ -111,7 +108,8 @@ export default {
         <div class="card my-3 bg-card" style="max-width: 18rem;">
           <div class="card-body">
             <img :src="getImageUrl(user.profile.photo)" class="card-img-top mb-2" alt="Immagine dell'utente">
-            <h5 class="card-title py-2">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i></h5>
+            <h5 class="card-title py-2">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i>
+            </h5>
             <h6 class="card-subtitle mb-2 text-info">Specializzazioni:</h6>
             <ul>
               <li v-for="specialization in user.specializations" :key="specialization.id">

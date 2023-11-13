@@ -66,7 +66,9 @@ export default {
     <div class="row">
       <div class="col-12 col-lg-4 categories-bg text-center">
         <header class="header">
-          <strong><h1 class="title">Cyber Security</h1></strong>
+          <strong>
+            <h1 class="title">Cyber Security</h1>
+          </strong>
 
           <p class="description ps-5 pe-5">
             Cyber Security è il punto di riferimento per esperti di sicurezza
@@ -82,33 +84,17 @@ export default {
         </header>
         <div class="row flex-column justify-content-center p-5">
           <div class="col-4 pb-3">
-            <label for="minAverageScore" class="form-label"
-              >Seleziona Media Voti:</label
-            >
-            <select
-              v-model="minAverageScore"
-              @change="fetchDataProfile"
-              class="form-select"
-            >
+            <label for="minAverageScore" class="form-label">Seleziona Media Voti:</label>
+            <select v-model="minAverageScore" @change="fetchDataProfile" class="form-select">
               <option value="0">Mostra tutti</option>
-              <option
-                v-for="score in [1, 2, 3, 4, 5]"
-                :key="score"
-                :value="score"
-              >
+              <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
                 {{ score }}
               </option>
             </select>
           </div>
           <div class="col-4">
-            <label for="numeroRecensioni" class="form-label"
-              >Seleziona utenti con più di:</label
-            >
-            <select
-              v-model="minReviewCount"
-              @change="fetchDataProfile"
-              class="form-select"
-            >
+            <label for="numeroRecensioni" class="form-label">Seleziona utenti con più di:</label>
+            <select v-model="minReviewCount" @change="fetchDataProfile" class="form-select">
               <option value="0">Mostra tutti</option>
               <option v-for="count in [1, 5, 10]" :key="count" :value="count">
                 {{ count }} recensioni
@@ -128,11 +114,6 @@ export default {
               <h4 class="slogan-font-color text-end mb-5">
                 Il Tuo Scudo Digitale nel Mondo Virtuale
               </h4>
-              <div class="text-end">
-                <router-link to="/" class="btn"
-                  >Controlla Disponibilita</router-link
-                >
-              </div>
             </header>
           </div>
         </div>
@@ -142,21 +123,13 @@ export default {
         <!-- Visualizza le card degli utenti -->
         <div class="row scrolling-container">
           <div class="col-md-4" v-for="user in profiles" :key="user.id">
-            <div
-              class="card mb-4"
-              v-if="
-                !isNaN(user.average_score) &&
-                user.average_score >= minAverageScore &&
-                !isNaN(user.review_count) &&
-                user.review_count >= minReviewCount
-              "
-            >
-              <img
-                v-if="user.profile && user.profile.photo"
-                :src="getImageUrl(user.profile.photo)"
-                class="card-img-top"
-                alt="Immagine Professionista"
-              />
+            <div class="card mb-4" v-if="!isNaN(user.average_score) &&
+              user.average_score >= minAverageScore &&
+              !isNaN(user.review_count) &&
+              user.review_count >= minReviewCount
+              ">
+              <img v-if="user.profile && user.profile.photo" :src="getImageUrl(user.profile.photo)" class="card-img-top"
+                alt="Immagine Professionista" />
               <div class="card-body">
                 <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
                 <div v-if="user.profile">
@@ -182,9 +155,7 @@ export default {
                           .join(", ")
                       }}
                     </p>
-                    <router-link :to="{ name: 'show', params: { id: user.id } }"
-                      >Dettagli</router-link
-                    >
+                    <router-link :to="{ name: 'show', params: { id: user.id } }">Dettagli</router-link>
                   </div>
                 </div>
               </div>
@@ -200,50 +171,55 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-body{
-	background-image: url(/bg-2.jpg);
-	background-size: cover;
-	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
-	background-repeat: no-repeat;
+body {
+  background-image: url(/bg-2.jpg);
+  background-size: cover;
+  background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+  background-repeat: no-repeat;
 
 }
+
 /* aggiunge un overlay trasparente all'immagine di sfondo */
 body::before {
   content: "";
-  background: rgba(173, 171, 171, 0.5); 
+  background: rgba(173, 171, 171, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Posiziona l'overlay dietro all'immagine di sfondo */
+  z-index: -1;
+  /* Posiziona l'overlay dietro all'immagine di sfondo */
 }
 
 .categories-bg {
-	background-color: rgba(51, 51, 51, 0.9);
-	color: #fff;
-	height: 100vh;
+  background-color: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  height: 100vh;
 }
 
 
 /* ----------------------------------------- */
-.title{
-	font-size: 4rem;
-	color: #27CDF2;
+.title {
+  font-size: 4rem;
+  color: #27CDF2;
 
 }
+
 .description {
   //color: white;
   color: #b0b1b2;
 }
+
 .slogan {
   color: #27cdf2;
   margin-bottom: 0;
 }
+
 .slogan h4 {
   margin-top: -1.5rem;
 }
+
 .slogan-font-color {
   color: #b0b1b2;
 }
@@ -276,6 +252,7 @@ body::before {
   margin-top: 5rem;
   margin-left: 2rem;
 }
+
 .bg-card {
   background-color: rgba(51, 51, 51, 0.9);
   color: #b0b1b2;

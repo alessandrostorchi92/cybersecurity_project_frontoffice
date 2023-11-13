@@ -138,6 +138,7 @@ export default {
 
   <!-- SEZIONE MESSAGGI -->
   <div class="container">
+    <router-link to="/" class="btn btn-info">Torna Indietro</router-link>
     <div class="row">
       <h1 class="pt-5">Contattami!</h1>
 
