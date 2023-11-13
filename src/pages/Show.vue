@@ -110,6 +110,7 @@ export default {
 </script>
 
 <template>
+  
   <div class="full-screen-card">
     <div class="card">
       <img
@@ -237,7 +238,6 @@ export default {
 
 <style lang="scss" scoped>
 .full-screen-card {
-  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
