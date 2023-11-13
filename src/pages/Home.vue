@@ -108,11 +108,11 @@ export default {
 
       <!-- Stampa le card degli utenti che hanno una sponsorizzazione attiva -->
       <div v-for="user in premiumUsers" :key="user.id">
-        <div class="card my-3" style="max-width: 18rem;">
+        <div class="card my-3 bg-card" style="max-width: 18rem;">
           <div class="card-body">
-            <img :src="getImageUrl(user.profile.photo)" class="card-img-top" alt="Immagine dell'utente">
-            <h5 class="card-title">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i></h5>
-            <h6 class="card-subtitle mb-2 text-muted">Specializzazioni:</h6>
+            <img :src="getImageUrl(user.profile.photo)" class="card-img-top mb-2" alt="Immagine dell'utente">
+            <h5 class="card-title py-2">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i></h5>
+            <h6 class="card-subtitle mb-2 text-info">Specializzazioni:</h6>
             <ul>
               <li v-for="specialization in user.specializations" :key="specialization.id">
                 {{ specialization.name }}
