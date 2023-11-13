@@ -1,7 +1,5 @@
-
 <script>
-import Presentation from './components/Presentation.vue';
-
+import Presentation from "./components/Presentation.vue";
 
 export default {
   components: {
@@ -9,32 +7,21 @@ export default {
   },
 
   data() {
-    return {
-
-    };
+    return {};
   },
-  methods: {
+  methods: {},
 
-  },
-
-  mounted() {
-
-  },
-
+  mounted() {},
 };
-
 </script>
-
 
 <template>
   <header>
-
     <div class="navigation-menu">
       <!-- colonna col-4 con bg-scuro -->
       <div class="row logo-column">
         <div class=" ">
-          <img src="/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
-
+          <img src="/logocyber.png" class="logo ms-3" alt="Logo" />
         </div>
       </div>
 
@@ -44,7 +31,6 @@ export default {
         <a class="me-3" href="http://127.0.0.1:8000/register">Register</a>
       </div>
     </div>
-
   </header>
 
   <main>
@@ -65,8 +51,7 @@ export default {
 }
 
 .logo {
-  width: 10rem;
-  margin-right: 20px;
+  width: 2.2rem;
 }
 
 .menu-items {
@@ -86,7 +71,7 @@ export default {
 }
 
 .menu-items a:hover {
-  border-bottom: 3px solid #27CDF2;
+  border-bottom: 3px solid #27cdf2;
   color: black;
 }
 </style>

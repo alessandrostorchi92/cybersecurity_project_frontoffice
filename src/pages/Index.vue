@@ -84,17 +84,33 @@ export default {
         </header>
         <div class="row flex-column justify-content-center p-5">
           <div class="col-4 pb-3">
-            <label for="minAverageScore" class="form-label">Seleziona Media Voti:</label>
-            <select v-model="minAverageScore" @change="fetchDataProfile" class="form-select">
+            <label for="minAverageScore" class="form-label"
+              >Seleziona Media Voti:</label
+            >
+            <select
+              v-model="minAverageScore"
+              @change="fetchDataProfile"
+              class="form-select"
+            >
               <option value="0">Mostra tutti</option>
-              <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
+              <option
+                v-for="score in [1, 2, 3, 4, 5]"
+                :key="score"
+                :value="score"
+              >
                 {{ score }}
               </option>
             </select>
           </div>
           <div class="col-4">
-            <label for="numeroRecensioni" class="form-label">Seleziona utenti con più di:</label>
-            <select v-model="minReviewCount" @change="fetchDataProfile" class="form-select">
+            <label for="numeroRecensioni" class="form-label"
+              >Seleziona utenti con più di:</label
+            >
+            <select
+              v-model="minReviewCount"
+              @change="fetchDataProfile"
+              class="form-select"
+            >
               <option value="0">Mostra tutti</option>
               <option v-for="count in [1, 5, 10]" :key="count" :value="count">
                 {{ count }} recensioni
@@ -123,13 +139,21 @@ export default {
         <!-- Visualizza le card degli utenti -->
         <div class="row scrolling-container">
           <div class="col-md-4" v-for="user in profiles" :key="user.id">
-            <div class="card mb-4" v-if="!isNaN(user.average_score) &&
-              user.average_score >= minAverageScore &&
-              !isNaN(user.review_count) &&
-              user.review_count >= minReviewCount
-              ">
-              <img v-if="user.profile && user.profile.photo" :src="getImageUrl(user.profile.photo)" class="card-img-top"
-                alt="Immagine Professionista" />
+            <div
+              class="card mb-4"
+              v-if="
+                !isNaN(user.average_score) &&
+                user.average_score >= minAverageScore &&
+                !isNaN(user.review_count) &&
+                user.review_count >= minReviewCount
+              "
+            >
+              <img
+                v-if="user.profile && user.profile.photo"
+                :src="getImageUrl(user.profile.photo)"
+                class="card-img-top"
+                alt="Immagine Professionista"
+              />
               <div class="card-body">
                 <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
                 <div v-if="user.profile">
@@ -155,7 +179,9 @@ export default {
                           .join(", ")
                       }}
                     </p>
-                    <router-link :to="{ name: 'show', params: { id: user.id } }">Dettagli</router-link>
+                    <router-link :to="{ name: 'show', params: { id: user.id } }"
+                      >Dettagli</router-link
+                    >
                   </div>
                 </div>
               </div>
@@ -176,7 +202,6 @@ body {
   background-size: cover;
   background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
   background-repeat: no-repeat;
-
 }
 
 /* aggiunge un overlay trasparente all'immagine di sfondo */
@@ -198,12 +223,10 @@ body::before {
   height: 100vh;
 }
 
-
 /* ----------------------------------------- */
 .title {
   font-size: 4rem;
-  color: #27CDF2;
-
+  color: #27cdf2;
 }
 
 .description {

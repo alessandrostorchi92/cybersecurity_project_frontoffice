@@ -110,168 +110,165 @@ export default {
 </script>
 
 <template>
-  
-  <div class="full-screen-card">
-    <div class="card">
-      <img
-        v-if="profile.photo"
-        :src="getImageUrl(profile.photo)"
-        class="card-img-top"
-        alt="Profile Image"
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
-        <p class="card-text">Email: {{ user.email }}</p>
-        <p v-if="user.specializations">
-          Specializzazione:
-          {{
-            user.specializations
-              .map((specialization) => specialization.name)
-              .join(", ")
-          }}
-        </p>
-        <p class="card-text">Phone: {{ profile.phone }}</p>
-        <p class="card-text">Location: {{ profile.location }}</p>
-        <p class="card-text">Descrizione: {{ profile.description }}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEZIONE MESSAGGI -->
   <div class="container">
-    <router-link to="/" class="btn btn-info">Torna Indietro</router-link>
-    <div class="row">
-      <h1 class="pt-5">Contattami!</h1>
+    <div class="row justify-content-between">
+      <div class="col-12 col-md-6">
+        <div
+          class="d-flex flex-column align-items-center text-center text-white"
+        >
+          <div class="container-photo-resize">
+            <img
+              v-if="profile.photo"
+              :src="getImageUrl(profile.photo)"
+              class="img-fluid rounded-circle photo-resize"
+              alt="Profile Image"
+            />
+          </div>
+          <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
+          <h4 class="bio-title pb-3" v-if="user.specializations">
+            {{
+              user.specializations
+                .map((specialization) => specialization.name)
+                .join(", ")
+            }}
+          </h4>
+        </div>
 
-      <!-- messaggio errore -->
-      <div class="alert alert-danger" v-if="errors">
-        Sembra che tu non abbia compilato tutti i campi. Riprova!
+        <div class="text-white pt-3 text-center">
+          <h6 class="card-text bio-title">Email:</h6>
+          <p>{{ user.email }}</p>
+
+          <h6 class="card-text bio-title">Phone:</h6>
+          <p>{{ profile.phone }}</p>
+          <h6 class="card-text bio-title">Location:</h6>
+          <p>{{ profile.location }}</p>
+          <h6 class="card-text bio-title">Descrizione:</h6>
+          <p>{{ profile.description }}</p>
+          <router-link to="/" class="btn btn-info mt-3 mb-5"
+            >Torna Indietro</router-link
+          >
+        </div>
       </div>
 
-      <!-- form -->
-      <form @submit.prevent="onFormSubmit" v-if="!success">
-        <div class="mb-3">
-          <label>Nome</label>
-          <input type="text" class="form-control" v-model="formData.name" />
+      <div class="col-12 col-md-4 text-white">
+        <!-- SEZIONE MESSAGGI -->
+        <h1>Contattami!</h1>
+
+        <!-- messaggio errore -->
+        <div class="alert alert-danger" v-if="errors">
+          Sembra che tu non abbia compilato tutti i campi. Riprova!
         </div>
 
-        <div class="mb-3">
-          <label>Cognome</label>
-          <input type="text" class="form-control" v-model="formData.surname" />
+        <!-- form -->
+        <form @submit.prevent="onFormSubmit" v-if="!success">
+          <div class="mb-3">
+            <label>Nome</label>
+            <input type="text" class="form-control" v-model="formData.name" />
+          </div>
+
+          <div class="mb-3">
+            <label>Cognome</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="formData.surname"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="text" class="form-control" v-model="formData.email" />
+          </div>
+
+          <div class="mb-3">
+            <label>Messaggio</label>
+            <textarea
+              class="form-control"
+              v-model="formData.description"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-3">Invia</button>
+        </form>
+
+        <!-- messaggio invio SE a buon fine -->
+        <div class="alert alert-success" v-else>{{ this.success }}</div>
+
+        <h1 class="pt-5">Scrivimi una recensione!</h1>
+
+        <!-- Form recensione: -->
+        <form @submit.prevent="submitReview" v-if="!reviewSuccess">
+          <div class="mb-3">
+            <label for="score" class="form-label">Voto:</label>
+            <star-rating
+              :initial-score="reviewScore"
+              @update-score="updateReviewScore"
+              ref="starRating"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input
+              type="text"
+              v-model="reviewName"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="surname" class="form-label">Cognome:</label>
+            <input
+              type="text"
+              v-model="reviewSurname"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="text" class="form-label">Recensione:</label>
+            <textarea
+              v-model="reviewText"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-5">
+            Invia Recensione
+          </button>
+        </form>
+
+        <!-- Messaggio di conferma o errore -->
+        <div class="alert alert-success" v-else>{{ this.reviewSuccess }}</div>
+
+        <div v-if="reviewError">
+          <p class="mt-3 text-danger">
+            Si è verificato un errore durante l'invio della recensione.
+          </p>
         </div>
-
-        <div class="mb-3">
-          <label>Email</label>
-          <input type="text" class="form-control" v-model="formData.email" />
-        </div>
-
-        <div class="mb-3">
-          <label>Messaggio</label>
-          <textarea
-            class="form-control"
-            v-model="formData.description"
-          ></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary mb-3">Invia</button>
-      </form>
-
-      <!-- messaggio invio SE a buon fine -->
-      <div class="alert alert-success" v-else>{{ this.success }}</div>
-    </div>
-
-    <h1 class="pt-5">Scrivimi una recensione!</h1>
-
-    <!-- Form recensione: -->
-    <div class="card-body">
-      <form @submit.prevent="submitReview" v-if="!reviewSuccess">
-        <div class="mb-3">
-          <label for="score" class="form-label">Voto:</label>
-          <star-rating
-            :initial-score="reviewScore"
-            @update-score="updateReviewScore"
-            ref="starRating"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Nome:</label>
-          <input
-            type="text"
-            v-model="reviewName"
-            class="form-control"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="surname" class="form-label">Cognome:</label>
-          <input
-            type="text"
-            v-model="reviewSurname"
-            class="form-control"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="text" class="form-label">Recensione:</label>
-          <textarea
-            v-model="reviewText"
-            class="form-control"
-            required
-          ></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Invia Recensione</button>
-      </form>
-
-      <!-- Messaggio di conferma o errore -->
-      <div class="alert alert-success" v-else>{{ this.reviewSuccess }}</div>
-    </div>
-    <div v-if="reviewError">
-      <p class="mt-3 text-danger">
-        Si è verificato un errore durante l'invio della recensione.
-      </p>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.full-screen-card {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f8f9fa;
-  /* Cambia il colore dello sfondo a tuo piacimento */
-}
-
-.card {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  width: 80vw;
-  /* Imposta la larghezza della card (80% della larghezza della viewport) */
-  max-width: 400px;
-  /* Larghezza massima della card */
-}
-
-.card-img-top {
-  object-fit: cover;
+.container-photo-resize {
+  aspect-ratio: 1 / 1;
   width: 100%;
-  height: 150px;
-  /* Altezza dell'immagine */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  max-width: 25rem;
+  overflow: hidden;
 }
 
-.card-body {
-  padding: 20px;
+.photo-resize {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-title {
-  font-size: 1.5em;
+  font-size: 2.5em;
   margin-bottom: 10px;
 }
 
@@ -297,5 +294,9 @@ export default {
 .star.selected {
   color: #fdcc0d;
   /* Colore delle stelle piene */
+}
+
+.bio-title {
+  color: #27cdf2;
 }
 </style>
