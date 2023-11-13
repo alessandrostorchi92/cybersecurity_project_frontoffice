@@ -200,9 +200,38 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.title {
-  font-size: 4rem;
-  color: #27cdf2;
+
+body{
+	background-image: url(/bg-2.jpg);
+	background-size: cover;
+	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+	background-repeat: no-repeat;
+
+}
+/* aggiunge un overlay trasparente all'immagine di sfondo */
+body::before {
+  content: "";
+  background: rgba(173, 171, 171, 0.5); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Posiziona l'overlay dietro all'immagine di sfondo */
+}
+
+.categories-bg {
+	background-color: rgba(51, 51, 51, 0.9);
+	color: #fff;
+	height: 100vh;
+}
+
+
+/* ----------------------------------------- */
+.title{
+	font-size: 4rem;
+	color: #27CDF2;
+
 }
 .description {
   //color: white;
