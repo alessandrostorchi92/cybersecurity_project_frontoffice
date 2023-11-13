@@ -158,29 +158,29 @@ export default {
                 alt="Immagine Professionista"
               />
               <div class="card-body overflow-auto  flex-column p-1">
-                <h5 class="card-title mb-2">{{ user.name }} {{ user.surname }}</h5>
+                <h5 class="card-title info text-center mb-2">{{ user.name }} {{ user.surname }}</h5>
                 <div class="details " v-if="user.profile">
-                  <p class="mb-2">
+                  <p class=" info mb-2">
                     Valutazione:
                     <span v-html="displayStars(user.average_score)"></span>
                   </p>
-                  <p class="mb-2">
+                  <p class="info mb-2">
                     Numero di recensioni:
-                    <span class="review-count">{{
+                    <span class="review-count description">{{
                       user.review_count || 0
                     }}</span>
                   </p>
                   <div class="card-text mb-3">
-                    <p>Location: {{ user.profile.location }}</p>
-                    <p>Skills: {{ user.profile.skills }}</p>
-                    <p style="word-wrap: break-word">Description: {{ user.profile.description }}</p>
-                    <p>
-                      Specialization:
+                    <p class="info">Location: <span class="description">{{ user.profile.location }} </span> </p>
+                    <p class="info">Skills: <span class="description">{{ user.profile.skills }}</span> </p>
+                    <p class="info" style="word-wrap: break-word">Description: <span class="description"> {{ user.profile.description }}</span></p>
+                    <p class="info">
+                      Specialization: <span class="description">
                       {{
                         user.specializations
                           .map((specialization) => specialization.name)
                           .join(", ")
-                      }}
+                      }}</span>
                     </p>
                     <router-link class="link" :to="{ name: 'show', params: { id: user.id } }"
                       >Dettagli</router-link
@@ -188,6 +188,8 @@ export default {
                   </div>
                 </div>
               </div>
+              
+              
             </div>
           </div>
         </div>
@@ -201,7 +203,12 @@ export default {
 
 <style lang="scss" scoped>
 
+.info{
+  font-size: 1rem;
+  color: #27CDF2;
+  font-weight: bold
 
+}
 
 body{
 	background-image: url(/bg-2.jpg);
