@@ -34,7 +34,7 @@ export default {
 <!-- colonna col-4 con bg-scuro -->
         <div class="row logo-column">
           <div class=" ">
-            <img src="public/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
+            <img src="n/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
   
           </div>
         </div>

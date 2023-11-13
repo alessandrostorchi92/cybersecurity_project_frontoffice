@@ -143,7 +143,7 @@ export default {
         <div class="row scrolling-container">
           <div class="col-md-4" v-for="user in profiles" :key="user.id">
             <div
-              class="card mb-4"
+              class="card scroll-card mb-4"
               v-if="
                 !isNaN(user.average_score) &&
                 user.average_score >= minAverageScore &&
@@ -157,23 +157,23 @@ export default {
                 class="card-img-top"
                 alt="Immagine Professionista"
               />
-              <div class="card-body">
-                <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
+              <div class="card-body overflow-auto p-1">
+                <h5 class="card-title mb-2">{{ user.name }} {{ user.surname }}</h5>
                 <div v-if="user.profile">
-                  <p>
+                  <p class="mb-2">
                     Valutazione:
                     <span v-html="displayStars(user.average_score)"></span>
                   </p>
-                  <p>
+                  <p class="mb-2">
                     Numero di recensioni:
                     <span class="review-count">{{
                       user.review_count || 0
                     }}</span>
                   </p>
-                  <div>
+                  <div class="card-text mb-3">
                     <p>Location: {{ user.profile.location }}</p>
                     <p>Skills: {{ user.profile.skills }}</p>
-                    <p>Description: {{ user.profile.description }}</p>
+                    <p style="word-wrap: break-word">Description: {{ user.profile.description }}</p>
                     <p>
                       Specialization:
                       {{
@@ -200,6 +200,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.scroll-card {
+  height: 350px; /* Imposta l'altezza fissa del contenitore */
+}
 
 body{
 	background-image: url(/bg-2.jpg);
