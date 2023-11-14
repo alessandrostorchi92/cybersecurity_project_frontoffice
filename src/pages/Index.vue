@@ -138,26 +138,29 @@ export default {
 
         <!-- Visualizza le card degli utenti -->
         <div class="row scrolling-container">
-          <div class="col-md-4" v-for="user in profiles" :key="user.id">
+          <div class="col-md-3" v-for="user in profiles" :key="user.id">
             <div
               class="card scroll-card bg-card mb-4"
+              style="width: 18rem"
               v-if="
                 !isNaN(user.average_score) &&
                 user.average_score >= minAverageScore &&
                 !isNaN(user.review_count) &&
                 user.review_count >= minReviewCount
               "
-            > 
+            >
               <img
                 v-if="user.profile && user.profile.photo"
                 :src="getImageUrl(user.profile.photo)"
                 class="card-img-top"
                 alt="Immagine Professionista"
               />
-              <div class="card-body overflow-auto  flex-column p-1">
-                <h5 class="card-title info text-center mb-2">{{ user.name }} {{ user.surname }}</h5>
-                <div class="details " v-if="user.profile">
-                  <p class=" info mb-2">
+              <div class="card-body overflow-auto flex-column p-1">
+                <h5 class="card-title info text-center mb-2">
+                  {{ user.name }} {{ user.surname }}
+                </h5>
+                <div class="details" v-if="user.profile">
+                  <p class="info mb-2">
                     Valutazione:
                     <span v-html="displayStars(user.average_score)"></span>
                   </p>
@@ -168,25 +171,40 @@ export default {
                     }}</span>
                   </p>
                   <div class="card-text mb-3">
-                    <p class="info">Location: <span class="description">{{ user.profile.location }} </span> </p>
-                    <p class="info">Skills: <span class="description">{{ user.profile.skills }}</span> </p>
-                    <p class="info" style="word-wrap: break-word">Description: <span class="description"> {{ user.profile.description }}</span></p>
                     <p class="info">
-                      Specialization: <span class="description">
-                      {{
-                        user.specializations
-                          .map((specialization) => specialization.name)
-                          .join(", ")
-                      }}</span>
+                      Location:
+                      <span class="description"
+                        >{{ user.profile.location }}
+                      </span>
                     </p>
-                    <router-link class="link" :to="{ name: 'show', params: { id: user.id } }"
+                    <p class="info">
+                      Skills:
+                      <span class="description">{{ user.profile.skills }}</span>
+                    </p>
+                    <p class="info" style="word-wrap: break-word">
+                      Description:
+                      <span class="description">
+                        {{ user.profile.description }}</span
+                      >
+                    </p>
+                    <p class="info">
+                      Specialization: <br />
+                      <span class="description">
+                        {{
+                          user.specializations
+                            .map((specialization) => specialization.name)
+                            .join(",")
+                        }}</span
+                      >
+                    </p>
+                    <router-link
+                      class="link"
+                      :to="{ name: 'show', params: { id: user.id } }"
                       >Dettagli</router-link
                     >
                   </div>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         </div>
@@ -199,20 +217,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-.info{
+.info {
   font-size: 1rem;
-  color: #27CDF2;
-  font-weight: bold
-
+  color: #27cdf2;
+  font-weight: bold;
 }
 
-body{
-	background-image: url(/bg-2.jpg);
-	background-size: cover;
-	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
-	background-repeat: no-repeat;
-
+body {
+  background-image: url(/bg-2.jpg);
+  background-size: cover;
+  background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
+  background-repeat: no-repeat;
 }
 
 /* aggiunge un overlay trasparente all'immagine di sfondo */
@@ -288,7 +303,7 @@ body::before {
 }
 
 .scroll-card {
-  height: 350px; /* Imposta l'altezza fissa del contenitore */
+  // height: 750px;
 }
 
 .bg-card {
@@ -296,12 +311,15 @@ body::before {
   color: #b0b1b2;
 }
 .card-body {
-  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.link{
-  color: #27CDF2;
+.link {
+  color: #27cdf2;
+}
+
+img {
+  width: 100%;
 }
 </style>
