@@ -50,7 +50,7 @@ export default {
         fullStar.repeat(roundedScore) +
         emptyStar.repeat(starCount - roundedScore);
 
-      return `<span class="fa-stack fa-lg">${stars}</span>`;
+      return `<span class="fa-stack fa-lg" style="display: flex; gap: 0.2rem;">${stars}</span>`;
     },
   },
 
@@ -140,8 +140,8 @@ export default {
         <div class="row scrolling-container">
           <div class="col-md-3" v-for="user in profiles" :key="user.id">
             <div
-              class="card scroll-card bg-card mb-4"
-              style="width: 18rem"
+              class="card bg-card"
+              style="width: 18rem; height: 100%"
               v-if="
                 !isNaN(user.average_score) &&
                 user.average_score >= minAverageScore &&
@@ -150,77 +150,78 @@ export default {
               "
             >
               <img
+                style="height: 18rem; object-fit: cover"
                 v-if="user.profile && user.profile.photo"
                 :src="getImageUrl(user.profile.photo)"
                 class="card-img-top"
                 alt="Immagine Professionista"
               />
-              <div class="card-body overflow-auto flex-column p-1">
-                <h5 class="card-title info text-center mb-2">
-                  {{ user.name }} {{ user.surname }}
-                </h5>
-                <div class="details" v-if="user.profile">
-                  <p class="info mb-2">
-                    Valutazione:
-                    <span v-html="displayStars(user.average_score)"></span>
-                  </p>
-                  <p class="info mb-2">
-                    Numero di recensioni:
-                    <span class="review-count description">{{
-                      user.review_count || 0
-                    }}</span>
-                  </p>
-                  <div class="card-text mb-3">
-                    <p class="info">
-                      Location:
-                      <span class="description"
-                        >{{ user.profile.location }}
-                      </span>
-                    </p>
-                    <p class="info">
-                      Skills:
-                      <span class="description">{{ user.profile.skills }}</span>
-                    </p>
-                    <p class="info" style="word-wrap: break-word">
-                      Description:
-                      <span class="description">
-                        {{ user.profile.description }}</span
-                      >
-                    </p>
-                    <p class="info">
-                      Specialization: <br />
-                      <span class="description">
-                        {{
-                          user.specializations
-                            .map((specialization) => specialization.name)
-                            .join(",")
-                        }}</span
-                      >
-                    </p>
-                    <router-link
-                      class="link"
-                      :to="{ name: 'show', params: { id: user.id } }"
-                      >Dettagli</router-link
-                    >
-                  </div>
+
+              <div class="blue-site card-body flex-column" v-if="user.profile">
+                <h3 class="">{{ user.name }} {{ user.surname }}</h3>
+                <div class="text-center">
+                  <span v-html="displayStars(user.average_score)"></span>
+                </div>
+
+                <p class="blue-site">
+                  Numero di recensioni:
+                  <span class="review-count description">{{
+                    user.review_count || 0
+                  }}</span>
+                </p>
+                <p class="blue-site">
+                  Location:
+                  <span class="description">{{ user.profile.location }} </span>
+                </p>
+                <p class="blue-site">
+                  Skills:
+                  <span class="description">{{ user.profile.skills }}</span>
+                </p>
+                <p class="blue-site" style="word-wrap: break-word">
+                  Description:
+                  <span class="description">
+                    {{ user.profile.description }}</span
+                  >
+                </p>
+                <p class="blue-site">Specialization:</p>
+                <ul>
+                  <li
+                    class="description"
+                    v-html="
+                      user.specializations
+                        .map((specialization) => specialization.name)
+                        .join('<br />')
+                    "
+                  ></li>
+                </ul>
+                <div class="mb-3 text-center">
+                  <router-link
+                    class="btn btn-primary"
+                    :to="{ name: 'show', params: { id: user.id } }"
+                    >Dettagli</router-link
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- -------------------------------- -->
       </div>
+
+      <!-- -------------------------------- -->
     </div>
   </div>
+
   <!-- ------------------------------ -->
 </template>
 
 <style lang="scss" scoped>
 .info {
   font-size: 1rem;
-  color: #27cdf2;
   font-weight: bold;
+}
+
+.blue-site {
+  color: #27cdf2;
 }
 
 body {
@@ -231,22 +232,22 @@ body {
 }
 
 /* aggiunge un overlay trasparente all'immagine di sfondo */
-body::before {
-  content: "";
-  background: rgba(173, 171, 171, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  /* Posiziona l'overlay dietro all'immagine di sfondo */
-}
+// body::before {
+//   content: "";
+//   background: rgba(173, 171, 171, 0.5);
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   z-index: -1;
+//   /* Posiziona l'overlay dietro all'immagine di sfondo */
+// }
 
 .categories-bg {
-  background-color: rgba(51, 51, 51, 0.9);
+  border-top-right-radius: 40px;
+  background-color: rgba(51, 51, 51, 0.6);
   color: #fff;
-  height: 100vh;
 }
 
 /* ----------------------------------------- */
@@ -296,14 +297,6 @@ body::before {
 .scrolling-container {
   white-space: nowrap;
   /* Evita che le card si spezzino su più righe */
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-top: 5rem;
-  margin-left: 2rem;
-}
-
-.scroll-card {
-  // height: 750px;
 }
 
 .bg-card {
@@ -314,6 +307,8 @@ body::before {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
 .link {
   color: #27cdf2;
