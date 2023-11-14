@@ -72,6 +72,5 @@ export default {
 
 .menu-items a:hover {
   border-bottom: 3px solid #27cdf2;
-  color: black;
 }
 </style>
