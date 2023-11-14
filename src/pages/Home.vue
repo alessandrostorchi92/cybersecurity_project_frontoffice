@@ -70,9 +70,14 @@ export default {
             <div class="next-arrow text-center">
               <i class="fa-solid fa-chevron-up"></i>
             </div>
-            <div v-for="(specialization, index) in specializations" :key="index"
-              @click="selectSpecialization(specialization?.id)" @mouseover="showDescription(specialization)"
-              @mouseout="selectedSpecialization = null" class="badge-style btn btn-primary">
+            <div
+              v-for="(specialization, index) in specializations"
+              :key="index"
+              @click="selectSpecialization(specialization?.id)"
+              @mouseover="showDescription(specialization)"
+              @mouseout="selectedSpecialization = null"
+              class="badge-style btn btn-primary"
+            >
               {{ specialization?.name }}
             </div>
             <div class="prev-arrow text-center">
@@ -103,27 +108,44 @@ export default {
       </div>
 
       <!-- Stampa le card degli utenti che hanno una sponsorizzazione attiva -->
-      <div v-for="user in premiumUsers" :key="user.id">
-        <div class="card my-3 bg-card ms-4" style="max-width: 18rem;">
-          <div class="card-body">
-            <img :src="getImageUrl(user.profile.photo)" class="card-img-top mb-2" alt="Immagine dell'utente">
-            <h5 class="card-title py-2">{{ user.name }} {{ user.surname }} <i class="fa-solid fa-crown text-warning"></i>
-            </h5>
-            <h6 class="card-subtitle mb-2 text-info">Specializzazioni:</h6>
-            <ul>
-              <li v-for="specialization in user.specializations" :key="specialization.id">
-                {{ specialization.name }}
-              </li>
-            </ul>
-            <p class="card-text">{{ user.profile.description }}</p>
-            <router-link class="btn btn-primary" :to="{ name: 'show', params: { id: user.id } }">Dettagli</router-link>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4" v-for="user in premiumUsers" :key="user.id">
+            <div class="card my-3 bg-card ms-4" style="width: 18rem">
+              <div class="card-body">
+                <img
+                  :src="getImageUrl(user.profile.photo)"
+                  class="card-img-top mb-2"
+                  alt="Immagine dell'utente"
+                />
+                <h5 class="card-title py-2">
+                  {{ user.name }} {{ user.surname }}
+                  <i class="fa-solid fa-crown text-warning"></i>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-info">Specializzazioni:</h6>
+                <ul>
+                  <li
+                    v-for="specialization in user.specializations"
+                    :key="specialization.id"
+                  >
+                    {{ specialization.name }}
+                  </li>
+                </ul>
+                <p class="card-text">{{ user.profile.description }}</p>
+                <router-link
+                  class="btn btn-primary"
+                  :to="{ name: 'show', params: { id: user.id } }"
+                  >Dettagli</router-link
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- -------------------------------- -->
     </div>
   </div>
+
+  <!-- -------------------------------- -->
 </template>
 
 <style lang="scss" scoped>
@@ -189,7 +211,6 @@ export default {
   border-top-right-radius: 40px;
   background-color: rgba(51, 51, 51, 0.6);
   color: #fff;
-  height: 100vh;
 }
 
 .title-cat-color {

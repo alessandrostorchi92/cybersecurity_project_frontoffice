@@ -257,7 +257,7 @@ export default {
 .container-photo-resize {
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-width: 25rem;
+  max-width: 20rem;
   overflow: hidden;
 }
 
