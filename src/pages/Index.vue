@@ -80,7 +80,7 @@ export default {
             di sicurezza di Cyber Sentinel e preparati a essere al sicuro
             online.
           </p>
-          <router-link to="/" class="btn">Torna Indietro</router-link>
+          <router-link to="/" class="btn btn-primary">Torna Indietro</router-link>
         </header>
         <div class="row flex-column justify-content-center p-5">
           <div class="col-4 pb-3">

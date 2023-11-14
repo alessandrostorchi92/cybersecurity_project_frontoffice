@@ -254,6 +254,24 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.btn {
+  cursor: pointer;
+  background-color: rgb(37, 37, 37);
+  color: #27cdf2;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  border-radius: 15px;
+  text-align: center;
+  padding: 8px 10px;
+  width: 15rem;
+}
+
+.btn:hover {
+  background-color: #6d7074;
+}
 .container-photo-resize {
   aspect-ratio: 1 / 1;
   width: 100%;
