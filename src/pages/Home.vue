@@ -6,6 +6,7 @@ export default {
     return {
       specializations: [],
       selectedSpecialization: null,
+      premiumUsers: [], // Array per i dati degli utenti "premium"
     };
   },
   methods: {
@@ -25,20 +26,32 @@ export default {
     showDescription(specialization) {
       this.selectedSpecialization = specialization;
     },
+
+    getPremiumUsersFromApi() {
+      axios.get("http://127.0.0.1:8000/api/premium-users").then((response) => {
+        this.premiumUsers = response.data;
+      });
+    },
+
+    getImageUrl(photo) {
+      return `http://127.0.0.1:8000/storage/${photo}`;
+    },
   },
 
   mounted() {
     this.getSpecializationsFromApi();
+    this.getPremiumUsersFromApi();
   },
 };
 </script>
 
 <template>
-  <div class="container-fluid"></div>
   <div class="row">
     <div class="col-lg-4 col-12 categories-bg text-center">
       <header class="header">
-        <strong><h1 class="title">Cyber Security</h1></strong>
+        <strong>
+          <h1 class="title">Cyber Security</h1>
+        </strong>
 
         <p class="description ps-5 pe-5">
           La tua sicurezza informatica è fondamentale. Scopri esperti
@@ -63,7 +76,7 @@ export default {
               @click="selectSpecialization(specialization?.id)"
               @mouseover="showDescription(specialization)"
               @mouseout="selectedSpecialization = null"
-              class="badge-style"
+              class="badge-style btn btn-primary"
             >
               {{ specialization?.name }}
             </div>
@@ -90,53 +103,49 @@ export default {
             <h4 class="slogan-font-color text-end mb-5">
               La Tua Difesa Online
             </h4>
-            <div class="text-end">
-              <router-link to="/index" class="btn">Cerca Esperto </router-link>
-            </div>
           </header>
         </div>
       </div>
 
-      <!-- bootstrap card -->
-
-      <div class="scrolling-container d-flex">
-        <!-- Contenuto della Card 1 -->
-        <div class="card bg-card me-5" style="min-width: 18rem">
-          <img src="/profile-pic.webp" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-text text-center">Nome Esperto</h5>
-          </div>
-        </div>
-        <!------------------------->
-        <div class="card bg-card me-5" style="min-width: 18rem">
-          <img src="/profile-pic.webp" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-text text-center">Nome Esperto</h5>
-          </div>
-        </div>
-        <div class="card bg-card me-5" style="min-width: 18rem">
-          <img src="/profile-pic.webp" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-text text-center">Nome Esperto</h5>
-          </div>
-        </div>
-        <div class="card bg-card me-5" style="min-width: 18rem">
-          <img src="/profile-pic.webp" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-text text-center">Nome Esperto</h5>
-          </div>
-        </div>
-        <div class="card bg-card me-5" style="min-width: 18rem">
-          <img src="/profile-pic.webp" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-text text-center">Nome Esperto</h5>
+      <!-- Stampa le card degli utenti che hanno una sponsorizzazione attiva -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4" v-for="user in premiumUsers" :key="user.id">
+            <div class="card my-3 bg-card ms-4" style="width: 18rem">
+              <div class="card-body">
+                <img
+                  :src="getImageUrl(user.profile.photo)"
+                  class="card-img-top mb-2"
+                  alt="Immagine dell'utente"
+                />
+                <h5 class="card-title py-2">
+                  {{ user.name }} {{ user.surname }}
+                  <i class="fa-solid fa-crown text-warning"></i>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-info">Specializzazioni:</h6>
+                <ul>
+                  <li
+                    v-for="specialization in user.specializations"
+                    :key="specialization.id"
+                  >
+                    {{ specialization.name }}
+                  </li>
+                </ul>
+                <p class="card-text">{{ user.profile.description }}</p>
+                <router-link
+                  class="btn btn-primary"
+                  :to="{ name: 'show', params: { id: user.id } }"
+                  >Dettagli</router-link
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- -------------------------------- -->
     </div>
   </div>
+
+  <!-- -------------------------------- -->
 </template>
 
 <style lang="scss" scoped>
@@ -144,9 +153,11 @@ export default {
   color: #27cdf2;
   margin-bottom: 0;
 }
+
 .slogan h4 {
   margin-top: -1.5rem;
 }
+
 .slogan-font-color {
   color: #b0b1b2;
 }
@@ -155,6 +166,7 @@ export default {
   font-size: 4rem;
   color: #27cdf2;
 }
+
 .description {
   //color: white;
   color: #b0b1b2;
@@ -188,17 +200,19 @@ export default {
   margin-top: 22rem;
   margin-left: 2rem;
 }
+
 .bg-card {
-  background-color: rgba(51, 51, 51, 0.9);
+  background-color: rgba(51, 51, 51, 0.6);
   color: #b0b1b2;
 }
 
 /*----------------------*/
 .categories-bg {
-  background-color: rgba(51, 51, 51, 0.9);
+  border-top-right-radius: 40px;
+  background-color: rgba(51, 51, 51, 0.6);
   color: #fff;
-  height: 100vh;
 }
+
 .title-cat-color {
   color: #b0b1b2;
 }

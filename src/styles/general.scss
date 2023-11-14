@@ -8,6 +8,7 @@ body{
 	background-size: cover;
 	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
 	background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
   
   
 
@@ -16,7 +17,6 @@ body{
 body::before {
   content: "";
   background: rgba(173, 171, 171, 0.5); 
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

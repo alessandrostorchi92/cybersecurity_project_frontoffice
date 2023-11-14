@@ -1,7 +1,5 @@
-
 <script>
-import Presentation from './components/Presentation.vue';
-
+import Presentation from "./components/Presentation.vue";
 
 export default {
   components: {
@@ -9,43 +7,30 @@ export default {
   },
 
   data() {
-    return {
-
-    };
+    return {};
   },
-  methods: {
+  methods: {},
 
-  },
-
-  mounted() {
-
-  },
-
+  mounted() {},
 };
-
 </script>
-
 
 <template>
   <header>
-  <Presentation></Presentation>
-
     <div class="navigation-menu">
-<!-- colonna col-4 con bg-scuro -->
-        <div class="row logo-column">
-          <div class=" ">
-            <img src="n/Cyber-Security-PNG-File.png" class="logo" alt="Logo" />
-  
-          </div>
+      <!-- colonna col-4 con bg-scuro -->
+      <div class="row logo-column">
+        <div class=" ">
+          <img src="/logocyber.png" class="logo ms-3" alt="Logo" />
         </div>
-    
+      </div>
+
       <div class="menu-items">
         <router-link class="me-5" to="/">Home</router-link>
-        <router-link class="me-5" to="/index">Index</router-link>
-        <a href="http://127.0.0.1:8000/login">Login </a>
+        <a class="me-3" href="http://127.0.0.1:8000/login">Login</a>
+        <a class="me-3" href="http://127.0.0.1:8000/register">Register</a>
       </div>
     </div>
-
   </header>
 
   <main>
@@ -56,25 +41,22 @@ export default {
 </template>
 
 <style lang="scss">
-
-
-
 .navigation-menu {
   display: flex;
 }
 
-.logo-column{
-  background-color:rgba(51, 51, 51, 0.9) ;
+.logo-column {
   width: 33.73%;
   padding: 1rem;
 }
+
 .logo {
-  width: 10rem; 
-  margin-right: 20px; 
+  width: 2.2rem;
 }
 
 .menu-items {
-  flex-grow: 1; /* Flessibilità per far crescere lo spazio disponibile */
+  flex-grow: 1;
+  /* Flessibilità per far crescere lo spazio disponibile */
   display: flex;
   justify-content: flex-end;
   width: 60.63%;
@@ -83,11 +65,12 @@ export default {
 }
 
 .menu-items a {
-  color: #b0b1b2; /* Colore del testo delle voci del menu */
+  color: #b0b1b2;
+  /* Colore del testo delle voci del menu */
   text-decoration: none;
 }
-.menu-items a:hover{
-  border-bottom: 3px solid #27CDF2 ;
-  color: black;
+
+.menu-items a:hover {
+  border-bottom: 3px solid #27cdf2;
 }
 </style>

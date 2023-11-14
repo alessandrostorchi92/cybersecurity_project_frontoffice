@@ -66,7 +66,9 @@ export default {
     <div class="row">
       <div class="col-12 col-lg-4 categories-bg text-center">
         <header class="header">
-          <strong><h1 class="title">Cyber Security</h1></strong>
+          <strong>
+            <h1 class="title">Cyber Security</h1>
+          </strong>
 
           <p class="description ps-5 pe-5">
             Cyber Security è il punto di riferimento per esperti di sicurezza
@@ -128,11 +130,6 @@ export default {
               <h4 class="slogan-font-color text-end mb-5">
                 Il Tuo Scudo Digitale nel Mondo Virtuale
               </h4>
-              <div class="text-end">
-                <router-link to="/" class="btn"
-                  >Controlla Disponibilita</router-link
-                >
-              </div>
             </header>
           </div>
         </div>
@@ -217,42 +214,46 @@ body{
 	background-repeat: no-repeat;
 
 }
+
 /* aggiunge un overlay trasparente all'immagine di sfondo */
 body::before {
   content: "";
-  background: rgba(173, 171, 171, 0.5); 
+  background: rgba(173, 171, 171, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Posiziona l'overlay dietro all'immagine di sfondo */
+  z-index: -1;
+  /* Posiziona l'overlay dietro all'immagine di sfondo */
 }
 
 .categories-bg {
-	background-color: rgba(51, 51, 51, 0.9);
-	color: #fff;
-	height: 100vh;
+  background-color: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  height: 100vh;
 }
-
 
 /* ----------------------------------------- */
-.title{
-	font-size: 4rem;
-	color: #27CDF2;
-
+.title {
+  font-size: 4rem;
+  color: #27cdf2;
 }
+
 .description {
   //color: white;
   color: #b0b1b2;
 }
+
 .slogan {
   color: #27cdf2;
   margin-bottom: 0;
 }
+
 .slogan h4 {
   margin-top: -1.5rem;
 }
+
 .slogan-font-color {
   color: #b0b1b2;
 }
