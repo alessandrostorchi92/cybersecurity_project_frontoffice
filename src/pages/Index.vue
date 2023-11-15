@@ -110,7 +110,7 @@ export default {
 
 
       <div class="col-lg-8 col-12">
-        <div class="row">
+        <div class="row pt-4">
           <div class="col-6"></div>
 
           <div class="col-5">
@@ -126,7 +126,7 @@ export default {
         <!-- bootstrap card -->
 
         <!-- Visualizza le card degli utenti -->
-        <div class="row gy-5 scrolling-container">
+        <div class="row row-cols-auto gy-5 scrolling-container">
           <div class="col col-style" v-for="user in profiles" :key="user.id">
             <div class="card bg-card" style="width: 18rem; height: 100%" v-if="!isNaN(user.average_score) &&
               user.average_score >= minAverageScore &&
@@ -139,8 +139,8 @@ export default {
               <div class="blue-site card-body flex-column" v-if="user.profile">
                 <h3 class="">{{ user.name }} {{ user.surname }}</h3>
                 <div class="text-center d-flex">
-                  <span v-html="displayStars(user.average_score)" ></span>
-                    <span class="review-count description ps-4">({{user.review_count || 0}})</span>
+                  <span v-html="displayStars(user.average_score)"></span>
+                  <span class="review-count description ps-4">({{ user.review_count || 0 }})</span>
                 </div>
                 <p class="blue-site">
                   Location:
@@ -156,8 +156,8 @@ export default {
                 <p class="blue-site">Specialization:</p>
                 <ul>
                   <li class="description" v-html="user.specializations
-                      .map((specialization) => specialization.name)
-                      .join('<br />')
+                    .map((specialization) => specialization.name)
+                    .join('<br />')
                     "></li>
                 </ul>
                 <div class="mb-3 text-center">
@@ -178,10 +178,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.home-style {
 
-.home-style{
-
-padding-top: 85px;
+  padding-top: 85px;
 }
 
 .info {
@@ -276,13 +275,15 @@ body {
 .btn:hover {
   background-color: #6d7074;
 }
-.col-style{
+
+.col-style {
   display: flex;
   justify-content: space-between;
 }
+
 /*----- Stile per il contenitore con uno scroll orizzontale -------*/
 .scrolling-container {
-  padding:1rem 0 0 2rem;
+  padding: 1rem 0 0 2rem;
   white-space: nowrap;
   /* Evita che le card si spezzino su più righe */
 }
@@ -311,12 +312,21 @@ img {
 }
 
 
-@media screen and (max-width:967px) {
+/* @media screen and (max-width:967px) {
 .col-style{
   justify-content: center;
 }
+} */
+
+@media screen and (max-width:623px) {
+  .categories-bg {
+    padding-bottom: 10px;
+  }
+
+  .scrolling-container {
+    padding: 0 0 20px 0;
+    display: flex;
+    justify-content: center;
+  }
 }
-
-
-
 </style>
