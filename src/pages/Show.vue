@@ -110,7 +110,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container home-style">
     <div class="row justify-content-between container-style">
       <div class="col-12 col-md-6">
         <div
@@ -254,6 +254,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.home-style{
+
+padding-top: 85px;
+height: 100vh;
+}
 .container-style{
   background-color: rgba(51, 51, 51, 0.6);
   padding: 50px;
