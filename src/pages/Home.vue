@@ -87,7 +87,7 @@ export default {
         </p>
 
         <div class="text-center mt-5">
-          <h5 class="title-cat-color">Cerca la Categoria Desiderata</h5>
+          <h5 class="title-cat-color">Cerca la Specializzazione Desiderata</h5>
         </div>
         <div class="text-center">
           <div class="text-center">
