@@ -4,6 +4,20 @@ import axios from "axios";
 export default {
   data() {
     return {
+      specializationNames:{
+        1: 'Security specialist',
+        2: 'Vulnerability assessor',
+        3: 'Security administrator',
+        4: 'Cryptographer',
+        5:"Security manager",
+        6:"Security analyst",
+        8:"Security architect",
+        9:"Malware analyst",
+        10:"Consulente di Sicurezza",
+        11:"Security consultant",
+        12:"Security engineer",
+        13:"Chief Information Security Officer, CISO)",
+      },
       profiles: [],
       average_score: 0,
       specializations: [],
@@ -116,8 +130,8 @@ export default {
           <div class="col-5">
             <div class="header text-center">
               <h2 class="slogan text-end">Esperti di Sicurezza</h2>
-              <h4 class="slogan-font-color text-end mb-5">
-                Il Tuo Scudo Digitale nel Mondo Virtuale
+              <h4 class="slogan-font-color text-end mb-5 fs-3">
+                {{ specializationNames[specializationId] }}
               </h4>
             </div>
           </div>
