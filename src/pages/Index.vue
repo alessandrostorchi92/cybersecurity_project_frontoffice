@@ -50,7 +50,7 @@ export default {
         fullStar.repeat(roundedScore) +
         emptyStar.repeat(starCount - roundedScore);
 
-      return `<span class="fa-stack fa-lg" style="display: flex; gap: 0.2rem;">${stars}</span>`;
+      return `<span class="fa-stack fa-lg" style="display: flex; gap: 0.2rem; width:100%">${stars}</span>`;
     },
   },
 
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <div class="container-fluid h-100">
+  <div class="container-fluid h-100 home-style">
     <div class="row h-100">
       <div class="col-12 col-lg-4 categories-bg text-center">
         <div class="header">
@@ -126,8 +126,8 @@ export default {
         <!-- bootstrap card -->
 
         <!-- Visualizza le card degli utenti -->
-        <div class="row scrolling-container">
-          <div class="col-md-3" v-for="user in profiles" :key="user.id">
+        <div class="row gy-5 scrolling-container">
+          <div class="col col-style" v-for="user in profiles" :key="user.id">
             <div class="card bg-card" style="width: 18rem; height: 100%" v-if="!isNaN(user.average_score) &&
               user.average_score >= minAverageScore &&
               !isNaN(user.review_count) &&
@@ -138,26 +138,16 @@ export default {
 
               <div class="blue-site card-body flex-column" v-if="user.profile">
                 <h3 class="">{{ user.name }} {{ user.surname }}</h3>
-                <div class="text-center">
-                  <span v-html="displayStars(user.average_score)"></span>
+                <div class="text-center d-flex">
+                  <span v-html="displayStars(user.average_score)" ></span>
+                    <span class="review-count description ps-4">({{user.review_count || 0}})</span>
                 </div>
-
-                <p class="blue-site">
-                  Numero di recensioni:
-                  <span class="review-count description">{{
-                    user.review_count || 0
-                  }}</span>
-                </p>
                 <p class="blue-site">
                   Location:
                   <span class="description">{{ user.profile.location }} </span>
                 </p>
-                <p class="blue-site">
-                  Skills:
-                  <span class="description">{{ user.profile.skills }}</span>
-                </p>
                 <p class="blue-site" style="word-wrap: break-word">
-                  Description:
+                  Descrizione:
                   <span class="description">
                     {{ user.profile.description && user.profile.description.length > 50 ?
                       user.profile.description.slice(0, 50) +
@@ -188,6 +178,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.home-style{
+
+padding-top: 85px;
+}
+
 .info {
   font-size: 1rem;
   font-weight: bold;
@@ -227,7 +223,11 @@ body {
   ;
 }
 
+
+
 .categories-bg {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   border-top-right-radius: 40px;
   background-color: rgba(51, 51, 51, 0.6);
   color: #fff;
@@ -258,6 +258,7 @@ body {
 }
 
 .btn {
+  --bs-btn-border-color: #27cdf2;
   cursor: pointer;
   background-color: rgb(37, 37, 37);
   color: #27cdf2;
@@ -275,14 +276,20 @@ body {
 .btn:hover {
   background-color: #6d7074;
 }
-
+.col-style{
+  display: flex;
+  justify-content: space-between;
+}
 /*----- Stile per il contenitore con uno scroll orizzontale -------*/
 .scrolling-container {
+  padding:1rem 0 0 2rem;
   white-space: nowrap;
   /* Evita che le card si spezzino su più righe */
 }
 
 .bg-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   background-color: rgba(51, 51, 51, 0.5);
   color: #b0b1b2;
 }
@@ -302,4 +309,14 @@ body {
 img {
   width: 100%;
 }
+
+
+@media screen and (max-width:967px) {
+.col-style{
+  justify-content: center;
+}
+}
+
+
+
 </style>

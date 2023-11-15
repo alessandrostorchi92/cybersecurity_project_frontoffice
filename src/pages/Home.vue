@@ -73,7 +73,7 @@ export default {
 </script>
 
 <template>
-  <div class="container-fluid m-0 h-100">
+  <div class="container-fluid m-0 home-style">
     <div class="row h-100">
       <div class="col-lg-5 col-12 text-center categories-bg">
         <strong>
@@ -125,10 +125,10 @@ export default {
               <div class="card bg-card" style="width: 18rem; height: 100%">
                 <img :src="getImageUrl(user.profile.photo)" class="card-img-top mb-2" alt="Immagine dell'utente"
                   style="height: 15rem; object-fit: cover" />
+                  <i class="fa-solid fa-crown text-warning"></i>
                 <div class="card-body flex-column">
                   <h3 class="card-title py-2 blue-site">
                     {{ user.name }} {{ user.surname }}
-                    <i class="fa-solid fa-crown text-warning"></i>
                   </h3>
                   <h6 class="card-subtitle mb-2">Specializzazioni:</h6>
                   <ul>
@@ -162,6 +162,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.home-style{
+
+  padding-top: 85px;
+  height: 100vh;
+}
+
 .blue-site {
   color: #27cdf2;
 }
@@ -198,6 +204,8 @@ export default {
 }
 
 .btn {
+  --bs-btn-border-color: #27cdf2;
+
   cursor: pointer;
   background-color: rgb(37, 37, 37);
   color: #27cdf2;
@@ -228,9 +236,19 @@ export default {
 
 .bg-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+  position: relative;
   background-color: rgba(51, 51, 51, 0.6);
   color: #b0b1b2;
+
+  i{
+    position: absolute;
+    font-size: 1.5rem;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.246);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  }
 }
 
 /*----------------------*/

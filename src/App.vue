@@ -50,10 +50,7 @@ header{
     position: fixed;
 }
 
-main{
-  padding-top: 85px;
-  height: 100vh;
-}
+
 
 .navigation-menu {
   display: flex;
