@@ -104,7 +104,7 @@ export default {
             <select v-model="minAverageScore" @change="fetchDataProfile" class="form-select">
               <option value="0">Mostra tutti</option>
               <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
-                {{ score }}
+                {{ score }}+
               </option>
             </select>
           </div>
@@ -113,7 +113,7 @@ export default {
             <select v-model="minReviewCount" @change="fetchDataProfile" class="form-select">
               <option value="0">Mostra tutti</option>
               <option v-for="count in [1, 5, 10]" :key="count" :value="count">
-                {{ count }} recensioni
+                {{ count }} {{ count === 1 ? 'recensione' : 'recensioni' }}
               </option>
             </select>
           </div>
