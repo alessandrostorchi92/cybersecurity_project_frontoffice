@@ -104,7 +104,7 @@ export default {
             <select v-model="minAverageScore" @change="fetchDataProfile" class="form-select">
               <option value="0">Mostra tutti</option>
               <option v-for="score in [1, 2, 3, 4, 5]" :key="score" :value="score">
-                {{ score }}+
+                {{ score }} {{ score === 5 ? '' : '+' }}
               </option>
             </select>
           </div>
