@@ -4,7 +4,8 @@
 /* ------------stili homepage----------------- */
 
 body{
-	background-image: url(/bg-2.jpg);
+	background-image: url('/public/cybersbg.jpg');
+  background-position: center;
 	background-size: cover;
 	background-attachment: fixed; //fissa il bg-img per evitare lo scrolling
 	background-repeat: no-repeat;

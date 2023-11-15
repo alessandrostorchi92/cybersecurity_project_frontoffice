@@ -41,6 +41,20 @@ export default {
 </template>
 
 <style lang="scss">
+
+header{
+  background-color: #27cdf21f;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    /* border-bottom: 1px solid black; */
+    width: 100%;
+    position: fixed;
+}
+
+main{
+  padding-top: 85px;
+  height: 100vh;
+}
+
 .navigation-menu {
   display: flex;
 }
