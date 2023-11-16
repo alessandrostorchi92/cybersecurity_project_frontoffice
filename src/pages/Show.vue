@@ -110,8 +110,8 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row justify-content-between">
+  <div class="container home-style">
+    <div class="row justify-content-between container-style">
       <div class="col-12 col-md-6">
         <div
           class="d-flex flex-column align-items-center text-center text-white"
@@ -254,6 +254,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.home-style{
+
+padding-top: 85px;
+height: 100vh;
+}
+.container-style{
+  background-color: rgba(51, 51, 51, 0.6);
+  padding: 50px;
+  border-radius: 50px;
+}
 .btn {
   cursor: pointer;
   background-color: rgb(37, 37, 37);
