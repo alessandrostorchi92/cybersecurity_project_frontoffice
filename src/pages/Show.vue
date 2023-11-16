@@ -110,8 +110,8 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row justify-content-between">
+  <div class="container home-style">
+    <div class="row justify-content-between container-style">
       <div class="col-12 col-md-6">
         <div
           class="d-flex flex-column align-items-center text-center text-white"
@@ -254,6 +254,35 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.home-style{
+
+padding-top: 85px;
+height: 100vh;
+}
+.container-style{
+  background-color: rgba(51, 51, 51, 0.6);
+  padding: 50px;
+  border-radius: 50px;
+}
+.btn {
+  cursor: pointer;
+  background-color: rgb(37, 37, 37);
+  color: #27cdf2;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  border-radius: 15px;
+  text-align: center;
+  padding: 8px 10px;
+  width: 15rem;
+}
+
+.btn:hover {
+  background-color: #6d7074;
+}
 .container-photo-resize {
   aspect-ratio: 1 / 1;
   width: 100%;

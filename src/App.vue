@@ -41,6 +41,27 @@ export default {
 </template>
 
 <style lang="scss">
+
+::-webkit-scrollbar{
+    background: #1e3240ea;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color:  #27cdf23b;
+}
+
+header{
+  background-color: #27cdf21f;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    /* border-bottom: 1px solid black; */
+    width: 100%;
+    position: fixed;
+}
+
+
+
 .navigation-menu {
   display: flex;
 }
